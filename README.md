@@ -19,3 +19,4 @@ A lab report cover page generator for students of Hajee Mohammad Danesh Science 
 
 ## Usage
 Download `index.html` and open it in any modern browser.
+
