@@ -55,10 +55,20 @@ It works **without internet** once the file is on your device.
 
 ---
 
+## Version dropdown
+
+At the top right of the **Cover Builder** header, the **Version** dropdown shows whether you are using **Online** or **Offline** and lets you switch or install at any time:
+
+- **Online**: Opens the hosted online site (does nothing if you are already on it).
+- **Offline**: Downloads the single self-contained `index.html` file from the latest release while keeping the current page open.
+- **Install WebApp (Online)**: Installs Cover Builder as an app (PWA) so it also works offline after the first visit. Installing works only from the online site—choosing this from the offline file opens the online site so you can install it there.
+
+---
+
 ## Privacy and security
 
 - Works offline: fonts, the PDF library, the logo and the teacher data are all inside the file
-- Strict Content-Security-Policy (`connect-src 'none'`), so the page cannot make network requests
+- Strict Content-Security-Policy: only lets the app's own site provide the service worker, the web app manifest and the icons when hosted online, while `connect-src 'none'` ensures the page itself still makes no network requests
 - No cookies and no analytics. Only your layout choice is saved in `localStorage`
 - The page reloads after use, so no student data stays on screen
 

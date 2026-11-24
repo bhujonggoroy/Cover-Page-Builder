@@ -1,0 +1,31 @@
+{
+  "id": "./",
+  "name": "HSTU Lab Report Cover Page Generator",
+  "short_name": "Cover Builder",
+  "description": "Generate and download print-ready A4 lab report cover pages for HSTU.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#4338ca",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
