@@ -68,10 +68,11 @@
 
         /* ================= SIDEBAR UI ================= */
         .sidebar {
-            width: 420px;
-            min-width: 420px;
+            width: clamp(330px, 30vw, 480px);
+            min-width: 0;
+            flex-shrink: 0;
             background: var(--surface);
-            padding: 0 20px 20px 20px;
+            padding: 0 clamp(14px, 1.5vw, 22px) 20px clamp(14px, 1.5vw, 22px);
             overflow-y: auto;
             border-right: 1px solid var(--line);
             box-shadow: 6px 0 30px rgba(15, 23, 42, 0.05);
@@ -91,11 +92,13 @@
             top: 0;
             z-index: 5;
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
             padding: 20px 0 14px 0;
             margin-bottom: 2px;
-            background: linear-gradient(to bottom, #ffffff 82%, rgba(255, 255, 255, 0));
+            background: linear-gradient(to bottom, #ffffff 84%, rgba(255, 255, 255, 0));
         }
 
         .header-brand {
@@ -342,24 +345,169 @@
             transform: translateY(0);
         }
 
-        #btn-download-desktop {
+        .sidebar-actions {
             position: sticky;
             bottom: 0;
             z-index: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 2px;
+            padding-top: 6px;
+            background: linear-gradient(to top, #f8fafc 75%, rgba(248, 250, 252, 0));
+        }
+
+        .btn-print-sharp {
+            background: #ffffff;
+            color: var(--ink);
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.1px;
+            padding: 13px 15px;
+            border: 1.5px solid var(--line-strong);
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-print-sharp:hover {
+            border-color: var(--brand);
+            color: var(--brand-dark);
+            background: var(--brand-soft);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.14);
+        }
+
+        .btn-print-sharp:active {
+            transform: translateY(0);
         }
 
         /* ================= PREVIEW CANVAS UI ================= */
         .preview-pane {
             flex: 1;
-            padding: 40px;
-            overflow: auto;
+            min-width: 0;
+            min-height: 0;
             display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            flex-direction: column;
             background-color: #e8edf4;
             background-image: radial-gradient(#c5cedc 1px, transparent 1px);
             background-size: 20px 20px;
             position: relative;
+        }
+
+        .preview-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 10px clamp(12px, 2vw, 24px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+            z-index: 15;
+            flex-shrink: 0;
+        }
+
+        .preview-toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .preview-toolbar-label {
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--ink-3);
+            white-space: nowrap;
+        }
+
+        .preview-toolbar .csel {
+            width: auto;
+            min-width: 118px;
+        }
+
+        .preview-toolbar .csel-btn {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+            border-radius: 8px;
+            min-height: 32px;
+        }
+
+        .pt-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 32px;
+            padding: 0 10px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface-2);
+            color: var(--ink-2);
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.16s ease;
+            white-space: nowrap;
+        }
+
+        .pt-btn:hover {
+            border-color: var(--line-strong);
+            background: #ffffff;
+            color: var(--ink);
+        }
+
+        .pt-btn.active {
+            background: var(--brand-soft);
+            border-color: var(--brand);
+            color: var(--brand-dark);
+        }
+
+        .pt-btn.pt-icon {
+            width: 32px;
+            padding: 0;
+            font-size: 0.95rem;
+        }
+
+        .pt-btn.pt-primary {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+            border-color: transparent;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.24);
+        }
+
+        .pt-btn.pt-primary:hover {
+            background: linear-gradient(135deg, #4f46e5, #3730a3);
+            color: #ffffff;
+        }
+
+        .pt-zoom-readout {
+            min-width: 44px;
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--ink-2);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .preview-stage {
+            flex: 1;
+            min-width: 0;
+            min-height: 0;
+            padding: clamp(16px, 2.5vw, 40px);
+            overflow: auto;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
         .preview-scaler {
@@ -367,7 +515,20 @@
             flex-shrink: 0;
             width: 794px;
             height: 1120px;
+            margin: auto;
             transform-origin: top left;
+        }
+
+        body.preview-fullscreen .sidebar {
+            display: none;
+        }
+
+        body.printing-cover .sidebar {
+            display: none !important;
+        }
+
+        body.printing-cover .preview-pane {
+            display: flex !important;
         }
 
         /* Single Page A4 Spec */
@@ -379,7 +540,7 @@
             max-width: 794px;
             max-height: 1120px;
             background: #ffffff;
-            padding: 42px 42px 42px 88px;
+            padding: var(--pg-pad, 42px 42px 42px 88px);
             box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(15, 23, 42, 0.04);
             box-sizing: border-box;
             display: flex;
@@ -424,6 +585,7 @@
             font-weight: 700;
             line-height: 1.3;
             white-space: pre-wrap;
+            overflow-wrap: break-word;
         }
 
         .block-header {
@@ -504,89 +666,26 @@
             white-space: nowrap;
         }
 
-        /* ================= COVER STYLE PICKER ================= */
-        .tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .tpl-btn {
-            background: var(--surface-2);
-            border: 1.5px solid var(--line);
-            border-radius: 12px;
-            padding: 10px;
-            cursor: pointer;
-            text-align: left;
-            font-family: inherit;
-            color: var(--ink);
-            transition: all 0.18s ease;
-        }
-        .tpl-btn:hover { border-color: var(--line-strong); }
-        .tpl-btn.active {
-            border-color: var(--brand);
-            box-shadow: 0 0 0 4px var(--brand-ring);
-            background: #ffffff;
-        }
-        .tpl-btn:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
-        .tpl-thumb {
-            display: block;
-            height: 46px;
-            border-radius: 5px;
-            background: #ffffff;
-            border: 1px solid var(--line);
-            margin-bottom: 8px;
-        }
-        .tpl-thumb.t-classic { border: 2px solid #334155; }
-        .tpl-thumb.t-modern { border: none; border-top: 6px solid #4f46e5; border-bottom: 6px solid #4f46e5; }
-        .tpl-thumb.t-minimal { border: none; border-bottom: 2px solid #334155; border-radius: 0; }
-        .tpl-thumb.t-formal { border: 4px double #334155; }
-        .tpl-btn .tpl-name { display: block; font-size: 0.84rem; font-weight: 700; }
-        .tpl-btn .tpl-desc { display: block; font-size: 0.7rem; color: var(--ink-3); margin-top: 2px; line-height: 1.3; }
-        .check-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.84rem;
-            font-weight: 600;
-            color: var(--ink-2);
-            cursor: pointer;
-        }
-        .check-row input { width: 16px; height: 16px; accent-color: var(--brand); cursor: pointer; }
-
-        /* ================= COVER TEMPLATES (preview + PDF) ================= */
+        /* ================= COVER LAYOUTS (structure & heading order) ================= */
         .block-degree,
         .block-footer-dept { display: none; }
         .show-dept .block-footer-dept { display: block; font-size: 12pt; line-height: 1.35; margin-top: 2px; text-align: center; }
 
-        /* Modern: colour bands top and bottom, sans-serif */
-        .tpl-modern .border-container {
-            border: none;
-            border-top: 14px solid #4f46e5;
-            border-bottom: 14px solid #4f46e5;
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        /* ================= TOP TEMPLATE & DESIGN SWITCH ================= */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
         }
-        .tpl-modern .block-title h2 { color: #312e81; }
-        .tpl-modern .date-table th { background: #eef2ff; }
-        .tpl-modern .date-table th,
-        .tpl-modern .date-table td { border-color: #4f46e5; }
-        .tpl-modern .block-footer .univ-name { color: #312e81; }
-
-        /* Minimal: no frame, rules and spaced capitals */
-        .tpl-minimal .border-container { border: none; padding: 70px 48px 60px 48px; }
-        .tpl-minimal .block-title { border-bottom: 1px solid #000; padding-bottom: 16px; }
-        .tpl-minimal .block-title h3 { font-size: 12pt; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
-        .tpl-minimal .block-title h2 { font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
-        .tpl-minimal .date-table th,
-        .tpl-minimal .date-table td { border: none; border-bottom: 1px solid #000; }
-
-        /* Formal: double frame and degree line at the top */
-        .tpl-formal .border-container { border: 6px double #000; padding: 50px 36px 40px 36px; }
-        .tpl-formal .block-degree {
-            display: block;
-            font-size: 13pt;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .tpl-quick {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 0;
+            margin-top: 0;
         }
-
-        /* ================= TOP TEMPLATE SWITCH ================= */
-        .tpl-quick { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
         .tpl-quick label { font-size: 0.76rem; font-weight: 700; color: var(--ink-3); white-space: nowrap; }
         .tpl-select {
             flex: 1; min-width: 0; padding: 8px 10px; border-radius: 10px;
@@ -594,7 +693,6 @@
             font-family: inherit; font-size: 0.86rem; color: var(--ink); cursor: pointer;
         }
         .tpl-select:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-ring); }
-        .tpl-thumb.t-newdesign { border: 1px solid #000; }
 
         /* ================= NEW DESIGN (from the reference cover) ================= */
         .tpl-newdesign .border-container { border: 1px solid #000; padding: 50px 40px 40px 40px; }
@@ -609,6 +707,66 @@
         .tpl-newdesign .block-footer-dept { display: block; order: 7; font-weight: 700; font-size: 12pt; margin-top: 2px; }
         .tpl-newdesign .block-footer { order: 8; }
         .tpl-newdesign .block-footer .address { font-size: 11.5pt; }
+
+        /* ================= DESIGN PRESETS (border, margin, colour, font only) ================= */
+        /* Modern: no frame, 14px indigo bands top and bottom, sans-serif, indigo headings and table header */
+        .page.dsg-modern .border-container {
+            border: none;
+            border-top: 14px solid #4f46e5;
+            border-bottom: 14px solid #4f46e5;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .page.dsg-modern .block-degree,
+        .page.dsg-modern .block-title h3,
+        .page.dsg-modern .block-title h2,
+        .page.dsg-modern .block-footer-dept,
+        .page.dsg-modern .block-footer .univ-name { color: #312e81; }
+        .page.dsg-modern .date-table th { background: #eef2ff; color: #312e81; }
+        .page.dsg-modern .date-table th,
+        .page.dsg-modern .date-table td { border-color: #4f46e5; }
+
+        /* Minimal: no frame, thin rule under the title, spaced capitals, only bottom lines in the date table */
+        .page.dsg-minimal .border-container { border: none; padding: 70px 48px 60px 48px; }
+        .page.dsg-minimal .block-title { border-bottom: 1px solid #000; padding-bottom: 16px; }
+        .page.dsg-minimal .block-title h3 { font-size: 12pt; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
+        .page.dsg-minimal .block-title h2 { font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+        .page.dsg-minimal .date-table th,
+        .page.dsg-minimal .date-table td { border: none; border-bottom: 1px solid #000; }
+
+        /* Formal: 6px double black frame (never adds degree line at the top) */
+        .page.dsg-formal .border-container { border: 6px double #000; padding: 50px 36px 40px 36px; }
+
+        /* Navy: 3px solid #1e3a8a frame, navy headings and table, serif (Tinos) */
+        .page.dsg-navy .border-container {
+            border: 3px solid #1e3a8a;
+            font-family: "Tinos", "Times New Roman", Times, serif;
+        }
+        .page.dsg-navy .block-degree,
+        .page.dsg-navy .block-title h3,
+        .page.dsg-navy .block-title h2,
+        .page.dsg-navy .block-footer-dept,
+        .page.dsg-navy .block-footer .univ-name { color: #1e3a8a; }
+        .page.dsg-navy .date-table th { background: #eff6ff; color: #1e3a8a; }
+        .page.dsg-navy .date-table th,
+        .page.dsg-navy .date-table td { border-color: #1e3a8a; }
+
+        /* Green: 4px double #166534 frame, Georgia, dark green headings, light green table header, tighter margin */
+        .page.dsg-green {
+            --pg-pad: 32px 32px 32px 76px;
+            --pg-pad-print: 9mm 9mm 9mm 20mm;
+        }
+        .page.dsg-green .border-container {
+            border: 4px double #166534;
+            font-family: Georgia, "Times New Roman", Times, serif;
+        }
+        .page.dsg-green .block-degree,
+        .page.dsg-green .block-title h3,
+        .page.dsg-green .block-title h2,
+        .page.dsg-green .block-footer-dept,
+        .page.dsg-green .block-footer .univ-name { color: #166534; }
+        .page.dsg-green .date-table th { background: #dcfce7; color: #14532d; }
+        .page.dsg-green .date-table th,
+        .page.dsg-green .date-table td { border-color: #166534; }
 
         /* ================= MODALS ================= */
         .meme-modal {
@@ -793,7 +951,7 @@
                 background: none;
             }
 
-            #btn-download-desktop {
+            .sidebar-actions {
                 display: none;
             }
 
@@ -801,8 +959,29 @@
                 width: 100%;
                 height: 100vh;
                 height: 100dvh;
-                padding: 70px 10px 90px 10px;
+                padding: 64px 0 80px 0;
                 display: none;
+            }
+
+            body.mobile-preview .sidebar {
+                display: none;
+            }
+
+            body.mobile-preview .preview-pane {
+                display: flex;
+            }
+
+            .pt-desktop-only {
+                display: none !important;
+            }
+
+            .preview-toolbar {
+                justify-content: center;
+                padding: 8px 10px;
+            }
+
+            .preview-stage {
+                padding: 12px 10px;
             }
 
             .mobile-sticky-action {
@@ -842,8 +1021,8 @@
             }
 
             .preview-pane {
-                padding-top: calc(70px + env(safe-area-inset-top, 0px));
-                padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+                padding-top: calc(64px + env(safe-area-inset-top, 0px));
+                padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
             }
 
             /* 16px stops iOS from zooming the page when a field is focused */
@@ -859,9 +1038,10 @@
             }
 
             .btn-download,
+            .btn-print-sharp,
             .meme-btn-confirm,
             .meme-btn-print {
-                min-height: 48px;
+                min-height: 46px;
             }
 
             .meme-card {
@@ -889,17 +1069,6 @@
 
         /* ---------- Tablets landscape / small laptops ---------- */
         @media screen and (min-width: 821px) and (max-width: 1100px) {
-            .sidebar {
-                width: 340px;
-                min-width: 340px;
-                padding-left: 14px;
-                padding-right: 14px;
-            }
-
-            .preview-pane {
-                padding: 24px;
-            }
-
             .grid-2 {
                 grid-template-columns: 1fr;
             }
@@ -907,13 +1076,8 @@
 
         /* ---------- Large desktops ---------- */
         @media screen and (min-width: 1500px) {
-            .sidebar {
-                width: 460px;
-                min-width: 460px;
-            }
-
-            .preview-pane {
-                padding: 48px;
+            .preview-stage {
+                padding: 40px 48px;
             }
         }
 
@@ -934,6 +1098,7 @@
         /* ---------- Touch devices: no sticky hover states ---------- */
         @media (hover: none) {
             .btn-download:hover,
+            .btn-print-sharp:hover,
             .meme-btn-confirm:hover {
                 transform: none;
             }
@@ -992,51 +1157,72 @@
 
         @media print {
             @page {
-                size: A4 portrait;
+                size: A4;
                 margin: 0 !important;
+            }
+
+            *, *::before, *::after {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
 
             html, body {
                 width: 210mm !important;
-                height: 297mm !important;
+                height: 296.5mm !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 background: #ffffff !important;
                 display: block !important;
+                overflow: hidden !important;
             }
 
-            .sidebar, .mobile-tabs, .mobile-sticky-action, .meme-modal, .ios-success-modal {
+            body > *:not(.preview-pane),
+            .sidebar,
+            .mobile-tabs,
+            .mobile-sticky-action,
+            .preview-toolbar,
+            .meme-modal,
+            .ios-success-modal,
+            .csel-menu {
                 display: none !important;
             }
 
-            .preview-pane {
+            .preview-pane,
+            .preview-stage {
                 padding: 0 !important;
                 margin: 0 !important;
                 background: #ffffff !important;
                 background-image: none !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
+                display: block !important;
                 position: static !important;
-                width: 100% !important;
-                height: 100% !important;
+                width: 210mm !important;
+                height: 296.5mm !important;
+                overflow: hidden !important;
             }
 
             .preview-scaler {
                 transform: none !important;
-                width: auto !important;
-                height: auto !important;
+                width: 210mm !important;
+                height: 296.5mm !important;
+                margin: 0 !important;
             }
 
             .page {
                 box-shadow: none !important;
+                border-radius: 0 !important;
                 width: 210mm !important;
-                height: 296mm !important;
-                padding: 12mm 12mm 12mm 24mm !important;
-                margin: 0 auto !important;
+                height: 296.5mm !important;
+                min-width: 0 !important;
+                max-width: none !important;
+                min-height: 0 !important;
+                max-height: none !important;
+                padding: var(--pg-pad-print, 12mm 12mm 12mm 24mm) !important;
+                margin: 0 !important;
                 box-sizing: border-box !important;
                 page-break-inside: avoid !important;
+                break-inside: avoid !important;
                 page-break-after: avoid !important;
+                break-after: avoid !important;
             }
         }
 
@@ -1050,8 +1236,7 @@
         .confirm-list dd.missing { color: #b91c1c; font-weight: 700; }
 
         /* ================= CUSTOM DROPDOWNS (replace the native select popup) =================
-           Desktop: a small themed popover under the field.
-           Phone / tablet (<= 820px): a bottom sheet with big touch rows. */
+           Unified in-place anchored popover under/above the field across all devices. */
         .csel { position: relative; width: 100%; min-width: 0; }
         .tpl-quick .csel { flex: 1; }
         .csel > select { display: none !important; }
@@ -1082,7 +1267,6 @@
         .csel-btn .csel-chev { flex: none; width: 14px; height: 14px; color: var(--ink-3); transition: transform 0.18s ease; }
         .csel-btn[aria-expanded="true"] .csel-chev { transform: rotate(180deg); color: var(--brand); }
 
-        .csel-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); z-index: 100000; display: none; }
         .csel-menu {
             position: fixed; z-index: 100001; display: none;
             background: #ffffff;
@@ -1096,7 +1280,6 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         .csel-menu.open { display: block; }
-        .csel-title { display: none; }
         .csel-item {
             display: flex; align-items: center; gap: 10px;
             padding: 9px 10px;
@@ -1111,38 +1294,7 @@
         .csel-item.selected { background: var(--brand-soft); color: var(--brand-dark); font-weight: 700; }
         .csel-item.selected .csel-check { visibility: visible; }
 
-        @keyframes cselSheetUp { from { transform: translateY(36px); opacity: 0; } to { transform: none; opacity: 1; } }
-        @media screen and (max-width: 820px) {
-            .csel-backdrop.open { display: block; }
-            .csel-btn { font-size: 16px; min-height: 46px; }
-            .tpl-quick .csel-btn { min-height: 40px; font-size: 15px; }
-            .csel-menu {
-                left: 0 !important; right: 0 !important; top: auto !important; bottom: 0 !important;
-                width: auto !important;
-                max-height: 72vh !important; max-height: 72dvh !important;
-                border: none;
-                border-radius: 22px 22px 0 0;
-                padding: 0 10px calc(14px + env(safe-area-inset-bottom, 0px)) 10px;
-                box-shadow: 0 -14px 40px rgba(15, 23, 42, 0.28);
-                animation: cselSheetUp 0.22s ease;
-            }
-            .csel-title {
-                display: flex; align-items: center; justify-content: space-between; gap: 12px;
-                position: sticky; top: 0; z-index: 1;
-                margin: 0 -10px 6px -10px;
-                padding: 16px 12px 12px 20px;
-                background: #ffffff;
-                border-bottom: 1px solid var(--line);
-                font-size: 0.98rem; font-weight: 800; color: var(--ink);
-            }
-            .csel-title button {
-                flex: none; width: 34px; height: 34px; border: none; border-radius: 50%;
-                background: var(--surface-2); color: var(--ink-2); font-size: 1rem; cursor: pointer;
-            }
-            .csel-item { padding: 14px 12px; min-height: 52px; font-size: 1rem; border-radius: 12px; }
-            .csel-item .csel-check { width: 20px; height: 20px; }
-        }
-        @media print { .csel-menu, .csel-backdrop { display: none !important; } }
+        @media print { .csel-menu { display: none !important; } }
     </style>
 </head>
 <body>
@@ -1160,7 +1312,7 @@
                     ✅ Confirm & Download PDF
                 </button>
                 <button class="meme-btn-print" onclick="executeNativePrint()">
-                    🖨️ Print / Save via Browser
+                    🖨️ Print / Save as sharp PDF
                 </button>
                 <button class="meme-btn-cancel" onclick="closeMemeModal()">
                     Review information
@@ -1204,12 +1356,25 @@
                     <p>Lab Report Cover Generator</p>
                 </div>
             </div>
-            <div class="tpl-quick">
-                <label for="tpl-select">Layout</label>
-                <select id="tpl-select" class="tpl-select" aria-label="Cover layout">
-                    <option value="">Default cover</option>
-                    <option value="newdesign">New design</option>
-                </select>
+            <div class="header-controls">
+                <div class="tpl-quick">
+                    <label for="tpl-select">Layout</label>
+                    <select id="tpl-select" class="tpl-select" aria-label="Cover layout">
+                        <option value="classic">Classic</option>
+                        <option value="newdesign">New design</option>
+                    </select>
+                </div>
+                <div class="tpl-quick">
+                    <label for="design-select">Design</label>
+                    <select id="design-select" class="tpl-select" aria-label="Cover design">
+                        <option value="default">As cover</option>
+                        <option value="modern">Modern</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="formal">Formal</option>
+                        <option value="navy">Navy</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -1333,39 +1498,6 @@
             </div>
         </div>
 
-        <!-- Card 6: Cover Style -->
-        <div class="form-card">
-            <div class="card-header">
-                <span>🎨</span> Cover Layout
-            </div>
-            <div class="tpl-grid" role="group" aria-label="Cover layout">
-                <button type="button" class="tpl-btn" data-tpl="classic" aria-pressed="true">
-                    <span class="tpl-thumb t-classic"></span>
-                    <span class="tpl-name">Classic</span>
-                    <span class="tpl-desc">Bordered, traditional</span>
-                </button>
-                <button type="button" class="tpl-btn" data-tpl="modern" aria-pressed="false">
-                    <span class="tpl-thumb t-modern"></span>
-                    <span class="tpl-name">Modern</span>
-                    <span class="tpl-desc">Colour bands, sans-serif</span>
-                </button>
-                <button type="button" class="tpl-btn" data-tpl="minimal" aria-pressed="false">
-                    <span class="tpl-thumb t-minimal"></span>
-                    <span class="tpl-name">Minimal</span>
-                    <span class="tpl-desc">No frame, clean rules</span>
-                </button>
-                <button type="button" class="tpl-btn" data-tpl="formal" aria-pressed="false">
-                    <span class="tpl-thumb t-formal"></span>
-                    <span class="tpl-name">Formal</span>
-                    <span class="tpl-desc">Degree at top, double frame</span>
-                </button>
-            </div>
-            <label class="check-row">
-                <input type="checkbox" id="in-show-dept">
-                Show department on cover
-            </label>
-        </div>
-
         <!-- Card 5: University Logo -->
         <div class="form-card">
             <div class="card-header">
@@ -1377,15 +1509,57 @@
             <input type="file" id="in-logo" accept="image/*" style="display: none;">
         </div>
 
-        <button id="btn-download-desktop" class="btn-download" onclick="openMemeModal()">
-            📥 Download Cover PDF
-        </button>
+        <div class="sidebar-actions">
+            <button id="btn-download-desktop" class="btn-download" onclick="openMemeModal()">
+                📥 Download PDF
+            </button>
+            <button id="btn-print-desktop" class="btn-print-sharp" onclick="executeNativePrint()">
+                🖨️ Print / Save as sharp PDF
+            </button>
+        </div>
     </div>
 
     <!-- Live Preview Sheet -->
     <div class="preview-pane" id="preview-pane">
-        <div class="preview-scaler" id="preview-scaler">
-            <div class="page tpl-classic" id="printable-cover">
+        <div class="preview-toolbar" id="preview-toolbar">
+            <div class="preview-toolbar-group pt-desktop-only">
+                <button type="button" class="pt-btn" id="btn-toggle-editor" onclick="togglePreviewFull()" aria-pressed="false" title="Toggle full-screen preview">
+                    <span id="toggle-editor-icon">⛶</span>
+                    <span id="toggle-editor-label">Full Preview</span>
+                </button>
+            </div>
+            <div class="preview-toolbar-group">
+                <span class="preview-toolbar-label">Layout</span>
+                <select id="preview-tpl-select" aria-label="Change cover layout">
+                    <option value="classic">Classic</option>
+                    <option value="newdesign">New design</option>
+                </select>
+                <span class="preview-toolbar-label">Design</span>
+                <select id="preview-design-select" aria-label="Change cover design">
+                    <option value="default">As cover</option>
+                    <option value="modern">Modern</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="formal">Formal</option>
+                    <option value="navy">Navy</option>
+                    <option value="green">Green</option>
+                </select>
+            </div>
+            <div class="preview-toolbar-group" aria-label="Preview zoom controls">
+                <button type="button" class="pt-btn pt-icon" id="btn-zoom-out" onclick="stepPreviewZoom(-0.1)" aria-label="Zoom out" title="Zoom out">−</button>
+                <button type="button" class="pt-btn active" id="btn-zoom-fit" onclick="setPreviewZoomMode('fit')" title="Fit whole page">Fit</button>
+                <button type="button" class="pt-btn" id="btn-zoom-width" onclick="setPreviewZoomMode('width')" title="Fit width">Width</button>
+                <button type="button" class="pt-btn" id="btn-zoom-100" onclick="setPreviewZoomMode('100')" title="Actual size (100%)">100%</button>
+                <button type="button" class="pt-btn pt-icon" id="btn-zoom-in" onclick="stepPreviewZoom(0.1)" aria-label="Zoom in" title="Zoom in">+</button>
+                <span class="pt-zoom-readout" id="zoom-readout">100%</span>
+            </div>
+            <div class="preview-toolbar-group pt-desktop-only">
+                <button type="button" class="pt-btn pt-primary" onclick="openMemeModal()">📥 Download PDF</button>
+                <button type="button" class="pt-btn" onclick="executeNativePrint()">🖨️ Print / Save as sharp PDF</button>
+            </div>
+        </div>
+        <div class="preview-stage" id="preview-stage">
+            <div class="preview-scaler" id="preview-scaler">
+            <div class="page tpl-classic dsg-default" id="printable-cover">
                 <div class="border-container">
                     
                     <!-- 0. Degree line (shown by the Formal template only) -->
@@ -1453,12 +1627,13 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 
     <!-- Mobile Sticky Action Bar -->
     <div class="mobile-sticky-action">
         <button id="btn-download-mobile" class="btn-download" onclick="openMemeModal()">
-            📥 Download Cover PDF
+            📥 Download PDF
         </button>
     </div>
 
@@ -2262,49 +2437,95 @@
             img.src = url;
         });
 
+        let previewZoomMode = 'fit'; // 'fit' | 'width' | 'manual'
+        let previewManualScale = 1;
+
         function switchMobileTab(tab) {
-            const sidebar = document.getElementById('sidebar');
-            const preview = document.getElementById('preview-pane');
             const tabEdit = document.getElementById('tab-edit');
             const tabPreview = document.getElementById('tab-preview');
+            const isPreview = tab === 'preview';
 
-            if (tab === 'edit') {
-                sidebar.style.display = 'flex';
-                preview.style.display = 'none';
-                tabEdit.classList.add('active');
-                tabPreview.classList.remove('active');
+            document.body.classList.toggle('mobile-preview', isPreview);
+            tabEdit.classList.toggle('active', !isPreview);
+            tabPreview.classList.toggle('active', isPreview);
+            if (isPreview) adjustA4Scale();
+        }
+
+        function togglePreviewFull(forceState) {
+            const full = typeof forceState === 'boolean'
+                ? forceState
+                : !document.body.classList.contains('preview-fullscreen');
+            document.body.classList.toggle('preview-fullscreen', full);
+            const btn = document.getElementById('btn-toggle-editor');
+            const icon = document.getElementById('toggle-editor-icon');
+            const lbl = document.getElementById('toggle-editor-label');
+            if (btn) btn.setAttribute('aria-pressed', full ? 'true' : 'false');
+            if (btn) btn.classList.toggle('active', full);
+            if (icon) icon.textContent = full ? '◧' : '⛶';
+            if (lbl) lbl.textContent = full ? 'Show Editor' : 'Full Preview';
+            requestAnimationFrame(adjustA4Scale);
+        }
+
+        function setPreviewZoomMode(mode) {
+            if (mode === '100') {
+                previewZoomMode = 'manual';
+                previewManualScale = 1;
             } else {
-                sidebar.style.display = 'none';
-                preview.style.display = 'flex';
-                tabPreview.classList.add('active');
-                tabEdit.classList.remove('active');
-                adjustA4Scale();
+                previewZoomMode = mode;
             }
+            adjustA4Scale();
+        }
+
+        function stepPreviewZoom(delta) {
+            const next = Math.round((previewManualScale + delta) * 100) / 100;
+            previewZoomMode = 'manual';
+            previewManualScale = Math.max(0.35, Math.min(2.0, next));
+            adjustA4Scale();
+        }
+
+        function updateZoomButtons(scale) {
+            const fitBtn = document.getElementById('btn-zoom-fit');
+            const widthBtn = document.getElementById('btn-zoom-width');
+            const fullBtn = document.getElementById('btn-zoom-100');
+            if (fitBtn) fitBtn.classList.toggle('active', previewZoomMode === 'fit');
+            if (widthBtn) widthBtn.classList.toggle('active', previewZoomMode === 'width');
+            if (fullBtn) fullBtn.classList.toggle('active', previewZoomMode === 'manual' && Math.abs(scale - 1) < 0.01);
         }
 
         function adjustA4Scale() {
             const scaler = document.getElementById('preview-scaler');
-            const previewPane = document.getElementById('preview-pane');
+            const stage = document.getElementById('preview-stage');
+            const readout = document.getElementById('zoom-readout');
 
             // Preview is hidden (e.g. mobile "Edit" tab) - nothing to measure
-            if (!previewPane.clientWidth) return;
+            if (!stage || !stage.clientWidth || !stage.clientHeight) return;
 
-            // Fit the A4 sheet to whatever space the device gives the preview
-            const cs = getComputedStyle(previewPane);
+            // Fit the A4 sheet cleanly to any device from small phone to large desktop monitor
+            const cs = getComputedStyle(stage);
             const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
             const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-            const availW = previewPane.clientWidth - padX;
-            const availH = previewPane.clientHeight - padY;
+            const availW = Math.max(200, stage.clientWidth - padX);
+            const availH = Math.max(200, stage.clientHeight - padY);
 
-            let scale = availW / 794;
-            if (window.innerWidth > 820) {
-                scale = Math.min(scale, availH / 1120);
+            let scale;
+            if (previewZoomMode === 'manual') {
+                scale = previewManualScale;
+            } else if (previewZoomMode === 'width') {
+                scale = Math.max(0.2, Math.min(availW / 794, 1.6));
+            } else {
+                const fitW = availW / 794;
+                const fitH = availH / 1120;
+                const maxAuto = window.innerWidth >= 1400 ? 1.45 : (window.innerWidth > 820 ? 1.15 : 1);
+                scale = Math.max(0.2, Math.min(Math.min(fitW, fitH), maxAuto));
             }
-            scale = Math.max(0.2, Math.min(scale, 1));
 
+            previewManualScale = scale;
             scaler.style.transform = `scale(${scale})`;
             scaler.style.width = (794 * scale) + 'px';
             scaler.style.height = (1120 * scale) + 'px';
+
+            if (readout) readout.textContent = Math.round(scale * 100) + '%';
+            updateZoomButtons(scale);
         }
 
         window.addEventListener('resize', adjustA4Scale);
@@ -2315,7 +2536,7 @@
             new ResizeObserver(() => {
                 cancelAnimationFrame(scaleFrame);
                 scaleFrame = requestAnimationFrame(adjustA4Scale);
-            }).observe(document.getElementById('preview-pane'));
+            }).observe(document.getElementById('preview-stage'));
         }
 
         function openMemeModal() {
@@ -2345,13 +2566,21 @@
 
         document.addEventListener('keydown', ev => {
             if (ev.key !== 'Escape') return;
+            const memeOpen = document.getElementById('meme-modal').style.display === 'flex';
+            const iosOpen = document.getElementById('ios-modal').style.display === 'flex';
             closeMemeModal();
             closeIosModal();
+            if (!memeOpen && !iosOpen && document.body.classList.contains('preview-fullscreen')) {
+                togglePreviewFull(false);
+            }
         });
 
         /* After a PDF is made or printed, return to the default blank cover.
            Nothing typed is kept: a reload starts from the defaults (form autocomplete is off). */
+        let resetScheduled = false;
         function resetAfterUse() {
+            if (resetScheduled) return;
+            resetScheduled = true;
             setTimeout(() => window.location.reload(), 1500);
         }
 
@@ -2370,28 +2599,52 @@
 
         function executeNativePrint() {
             closeMemeModal();
-            const preview = document.getElementById('preview-pane');
-            const sidebar = document.getElementById('sidebar');
-            const prevPreviewDisplay = preview.style.display;
-            const prevSidebarDisplay = sidebar.style.display;
             const prevTitle = document.title;
+            const scaler = document.getElementById('preview-scaler');
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-            preview.style.display = 'flex';
-            sidebar.style.display = 'none';
+            document.body.classList.add('printing-cover');
             document.title = safeFileBase() + ''; // browsers use the title as the default PDF name
 
+            // Clear any preview scaling transform during printing
+            if (scaler) {
+                scaler.style.transform = 'none';
+                scaler.style.width = '210mm';
+                scaler.style.height = '296.5mm';
+            }
+            void document.body.offsetHeight;
+
             let restored = false;
-            const restore = () => {
-                if (restored) return; restored = true;
-                preview.style.display = prevPreviewDisplay;
-                sidebar.style.display = prevSidebarDisplay;
-                document.title = prevTitle;
-                window.removeEventListener('afterprint', restore);
-                adjustA4Scale();
+            const printMql = window.matchMedia ? window.matchMedia('print') : null;
+            const onMqlChange = (ev) => {
+                if (!ev.matches) finishPrint();
             };
-            window.addEventListener('afterprint', restore);
-            window.addEventListener('afterprint', resetAfterUse, { once: true });
-            setTimeout(() => { window.print(); setTimeout(restore, 1500); }, 100);
+
+            const finishPrint = () => {
+                if (restored) return;
+                restored = true;
+                document.body.classList.remove('printing-cover');
+                document.title = prevTitle;
+                window.removeEventListener('afterprint', finishPrint);
+                if (printMql && printMql.removeEventListener) {
+                    printMql.removeEventListener('change', onMqlChange);
+                }
+                adjustA4Scale();
+                resetAfterUse();
+            };
+
+            window.addEventListener('afterprint', finishPrint, { once: true });
+            if (printMql && printMql.addEventListener) {
+                printMql.addEventListener('change', onMqlChange);
+            }
+
+            window.print();
+
+            // Fallback for browsers/WebViews where afterprint does not fire after window.print() closes
+            if (!isIOS) {
+                setTimeout(finishPrint, 1200);
+            }
         }
 
         /* Safe file name: only letters, digits, - and _ (a typed ID can never create a weird path/name) */
@@ -2409,8 +2662,9 @@
             closeMemeModal();
 
             // Detect iOS (iPhone / iPad / iPod)
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const isCompact = (window.innerWidth <= 820 || isIOS);
 
             // Create loading screen
             const loadingOverlay = document.createElement('div');
@@ -2451,104 +2705,131 @@
             sandbox.style.zIndex = '99998';
             sandbox.style.background = '#ffffff';
             sandbox.style.overflow = 'hidden';
-
-            const clone = document.getElementById('printable-cover').cloneNode(true);
-            clone.removeAttribute('id');
-            clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id')); // no duplicate IDs in the live page
-            clone.style.transform = 'none';
-            clone.style.margin = '0';
-            clone.style.width = '794px';
-            clone.style.height = '1120px';
-
-            sandbox.appendChild(clone);
             document.body.appendChild(sandbox);
 
-            // Safe scale for mobile to avoid WebKit canvas memory crash
-            const safeScale = (window.innerWidth <= 820 || isIOS) ? 1.5 : 2;
+            const renderWithScale = async (canvasScale) => {
+                sandbox.innerHTML = '';
+                document.querySelectorAll('.html2pdf__overlay').forEach(el => el.remove());
 
-            const opt = {
-                margin: 0,
-                filename: filename,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: safeScale, 
-                    useCORS: true,
-                    allowTaint: false,
-                    logging: false,
-                    scrollX: 0,
-                    scrollY: 0
-                },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                pagebreak: { mode: 'avoid-all' }
+                const clone = document.getElementById('printable-cover').cloneNode(true);
+                clone.removeAttribute('id');
+                clone.querySelectorAll('[id]').forEach(n => n.removeAttribute('id')); // no duplicate IDs in the live page
+                clone.style.transform = 'none';
+                clone.style.margin = '0';
+                clone.style.width = '794px';
+                clone.style.height = '1120px';
+                sandbox.appendChild(clone);
+
+                const opt = {
+                    margin: 0,
+                    filename: filename,
+                    image: { type: 'png', quality: 1.0 },
+                    html2canvas: {
+                        scale: canvasScale,
+                        useCORS: true,
+                        allowTaint: false,
+                        logging: false,
+                        scrollX: 0,
+                        scrollY: 0
+                    },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    pagebreak: { mode: 'avoid-all' }
+                };
+
+                const pdf = await html2pdf().set(opt).from(clone).toPdf().get('pdf');
+                const totalPages = pdf.internal.getNumberOfPages();
+                if (totalPages > 1) {
+                    for (let p = totalPages; p > 1; p--) {
+                        pdf.deletePage(p);
+                    }
+                }
+
+                pdf.setProperties({ title: 'Lab Report Cover', subject: '', author: '', keywords: '', creator: '' });
+
+                if (isIOS) {
+                    const blob = pdf.output('blob');
+                    const blobUrl = URL.createObjectURL(blob);
+
+                    const iosModal = document.getElementById('ios-modal');
+                    const openLink = document.getElementById('ios-open-link');
+                    if (window.__lastBlobUrl) URL.revokeObjectURL(window.__lastBlobUrl);
+                    openLink.href = blobUrl;
+                    window.__lastBlobUrl = blobUrl;
+                    openLink.download = filename;
+
+                    iosModal.style.display = 'flex';
+                } else {
+                    pdf.save(filename);
+                    resetAfterUse();
+                }
             };
 
+            // Scale 3 on desktop, 2 on mobile/iOS, with fallback to lower scale (2 / 1.5) if canvas creation fails
+            const primaryScale = isCompact ? 2 : 3;
+            const fallbackScale = isCompact ? 1.5 : 2;
+
             try {
-                const pdfWorker = html2pdf().set(opt).from(clone).toPdf().get('pdf');
-
-                await pdfWorker.then(async function(pdf) {
-                    const totalPages = pdf.internal.getNumberOfPages();
-                    if (totalPages > 1) {
-                        for (let p = totalPages; p > 1; p--) {
-                            pdf.deletePage(p);
-                        }
-                    }
-
-                    pdf.setProperties({ title: 'Lab Report Cover', subject: '', author: '', keywords: '', creator: '' });
-
-                    if (isIOS) {
-                        const blob = pdf.output('blob');
-                        const blobUrl = URL.createObjectURL(blob);
-                        
-                        const iosModal = document.getElementById('ios-modal');
-                        const openLink = document.getElementById('ios-open-link');
-                        if (window.__lastBlobUrl) URL.revokeObjectURL(window.__lastBlobUrl);
-                        openLink.href = blobUrl;
-                        window.__lastBlobUrl = blobUrl;
-                        openLink.download = filename;
-                        
-                        iosModal.style.display = 'flex';
-                    } else {
-                        pdf.save(filename);
-                        resetAfterUse();
-                    }
-                });
+                try {
+                    await renderWithScale(primaryScale);
+                } catch (highScaleErr) {
+                    console.warn(`html2canvas scale ${primaryScale} failed, retrying with scale ${fallbackScale}:`, highScaleErr);
+                    await renderWithScale(fallbackScale);
+                }
             } catch (err) {
                 console.error('html2pdf generation error, triggering browser print fallback:', err);
+                document.querySelectorAll('.html2pdf__overlay').forEach(el => el.remove());
+                if (sandbox.parentNode) document.body.removeChild(sandbox);
+                if (loadingOverlay.parentNode) document.body.removeChild(loadingOverlay);
                 executeNativePrint();
             } finally {
+                document.querySelectorAll('.html2pdf__overlay').forEach(el => el.remove());
                 if (sandbox.parentNode) document.body.removeChild(sandbox);
                 if (loadingOverlay.parentNode) document.body.removeChild(loadingOverlay);
                 pdfBusy = false;
             }
         }
 
-        /* ===== Cover style (template) + optional department line ===== */
+        /* ===== Cover layout + design preset + optional department line ===== */
         const pageEl = document.getElementById('printable-cover');
-        const TEMPLATES = ['classic', 'modern', 'minimal', 'formal', 'newdesign'];
+        const TEMPLATES = ['classic', 'newdesign'];
+        const DESIGNS = ['default', 'modern', 'minimal', 'formal', 'navy', 'green'];
         const tplSelect = document.getElementById('tpl-select');
-        const tplButtons = Array.from(document.querySelectorAll('.tpl-btn'));
-        const showDeptBox = document.getElementById('in-show-dept');
+        const previewTplSelect = document.getElementById('preview-tpl-select');
+        const designSelect = document.getElementById('design-select');
+        const previewDesignSelect = document.getElementById('preview-design-select');
         const outDegreeTop = document.getElementById('out-degree-top');
         const outFooterDept = document.getElementById('out-footer-dept');
         let currentTpl = 'classic';
+        let currentDesign = 'default';
+        let showDept = false;
 
         /* Remember the last choice on this device only (optional; ignored if storage is blocked) */
         try {
             const saved = JSON.parse(localStorage.getItem('coverStyle') || 'null');
-            if (saved && TEMPLATES.includes(saved.tpl)) currentTpl = saved.tpl;
-            if (saved && typeof saved.showDept === 'boolean') showDeptBox.checked = saved.showDept;
+            if (saved) {
+                if (TEMPLATES.includes(saved.tpl)) {
+                    currentTpl = saved.tpl;
+                } else if (['modern', 'minimal', 'formal'].includes(saved.tpl)) {
+                    currentTpl = 'classic';
+                    currentDesign = saved.tpl;
+                }
+                if (DESIGNS.includes(saved.design)) currentDesign = saved.design;
+                if (typeof saved.showDept === 'boolean') showDept = saved.showDept;
+            }
         } catch (e) { /* storage unavailable: keep defaults */ }
 
         function applyCoverStyle() {
-            pageEl.className = 'page tpl-' + currentTpl + (showDeptBox.checked ? ' show-dept' : '');
-            tplSelect.value = currentTpl === 'newdesign' ? 'newdesign' : '';
-            tplButtons.forEach(b => {
-                const on = b.dataset.tpl === currentTpl;
-                b.classList.toggle('active', on);
-                b.setAttribute('aria-pressed', on ? 'true' : 'false');
-            });
+            pageEl.className = 'page tpl-' + currentTpl + ' dsg-' + currentDesign + (showDept ? ' show-dept' : '');
+            tplSelect.value = currentTpl;
+            if (previewTplSelect) previewTplSelect.value = currentTpl;
+            designSelect.value = currentDesign;
+            if (previewDesignSelect) previewDesignSelect.value = currentDesign;
             try {
-                localStorage.setItem('coverStyle', JSON.stringify({ tpl: currentTpl, showDept: showDeptBox.checked }));
+                localStorage.setItem('coverStyle', JSON.stringify({
+                    tpl: currentTpl,
+                    design: currentDesign,
+                    showDept: showDept
+                }));
             } catch (e) { /* ignore */ }
         }
 
@@ -2557,13 +2838,14 @@
         degreeInput.addEventListener('input', syncTopDegree);
         deptInput.addEventListener('input', syncFooterDept);
 
-        tplButtons.forEach(b => b.addEventListener('click', () => {
-            currentTpl = b.dataset.tpl;
-            applyCoverStyle();
-            adjustA4Scale();
-        }));
         tplSelect.addEventListener('change', () => { currentTpl = tplSelect.value || 'classic'; applyCoverStyle(); adjustA4Scale(); });
-        showDeptBox.addEventListener('change', () => { applyCoverStyle(); adjustA4Scale(); });
+        if (previewTplSelect) {
+            previewTplSelect.addEventListener('change', () => { currentTpl = previewTplSelect.value || 'classic'; applyCoverStyle(); adjustA4Scale(); });
+        }
+        designSelect.addEventListener('change', () => { currentDesign = designSelect.value || 'default'; applyCoverStyle(); adjustA4Scale(); });
+        if (previewDesignSelect) {
+            previewDesignSelect.addEventListener('change', () => { currentDesign = previewDesignSelect.value || 'default'; applyCoverStyle(); adjustA4Scale(); });
+        }
 
         syncTopDegree();
         syncFooterDept();
@@ -2574,18 +2856,14 @@
            Native select popups look different on every phone and clash with the page.
            The real <select> stays in the page (hidden), so all existing logic and values keep working. */
         (function () {
-            const isMobile = () => window.innerWidth <= 820;
             const CHEV = '<svg class="csel-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
             const CHECK = '<svg class="csel-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
             const valueDesc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
 
-            const backdrop = document.createElement('div');
-            backdrop.className = 'csel-backdrop';
             const menu = document.createElement('div');
             menu.className = 'csel-menu';
-            menu.innerHTML = '<div class="csel-title"><span></span><button type="button" aria-label="Close">\u2715</button></div><div class="csel-list" role="listbox"></div>';
-            document.body.append(backdrop, menu);
-            const titleEl = menu.querySelector('.csel-title span');
+            menu.innerHTML = '<div class="csel-list" role="listbox"></div>';
+            document.body.append(menu);
             const listEl = menu.querySelector('.csel-list');
 
             let cur = null;       // { sel, btn, wrap, title, refresh }
@@ -2611,19 +2889,20 @@
             }
 
             function position() {
-                if (isMobile()) { menu.style.removeProperty('left'); menu.style.removeProperty('width'); return; }
                 const r = cur.btn.getBoundingClientRect();
                 menu.style.width = r.width + 'px';
                 menu.style.left = r.left + 'px';
-                const below = window.innerHeight - r.bottom - 12;
-                const above = r.top - 12;
+                const topLimit = window.innerWidth <= 820 ? 66 : 12;
+                const bottomLimit = window.innerWidth <= 820 ? 78 : 12;
+                const below = window.innerHeight - r.bottom - bottomLimit;
+                const above = r.top - topLimit;
                 const want = Math.min(listEl.scrollHeight + 10, 300);
                 if (below < want && above > below) {
-                    menu.style.maxHeight = Math.min(300, above - 6) + 'px';
+                    menu.style.maxHeight = Math.max(80, Math.min(300, above - 6)) + 'px';
                     menu.style.top = 'auto';
                     menu.style.bottom = (window.innerHeight - r.top + 6) + 'px';
                 } else {
-                    menu.style.maxHeight = Math.min(300, Math.max(120, below - 6)) + 'px';
+                    menu.style.maxHeight = Math.max(80, Math.min(300, below - 6)) + 'px';
                     menu.style.bottom = 'auto';
                     menu.style.top = (r.bottom + 6) + 'px';
                 }
@@ -2632,17 +2911,14 @@
             function centerSelected() {
                 const s = items.find(x => x.el.classList.contains('selected'));
                 if (!s) { menu.scrollTop = 0; return; }
-                const box = isMobile() ? menu : menu;
                 menu.scrollTop = Math.max(0, s.el.offsetTop - menu.clientHeight / 2 + s.el.offsetHeight / 2);
             }
 
             function openMenu(c) {
                 if (cur) closeMenu();
                 cur = c;
-                titleEl.textContent = c.title;
                 build();
                 menu.classList.add('open');
-                backdrop.classList.add('open');
                 c.btn.setAttribute('aria-expanded', 'true');
                 position();
                 centerSelected();
@@ -2651,7 +2927,6 @@
             function closeMenu() {
                 if (!cur) return;
                 menu.classList.remove('open');
-                backdrop.classList.remove('open');
                 cur.btn.setAttribute('aria-expanded', 'false');
                 cur = null;
                 items = [];
@@ -2679,14 +2954,15 @@
                 else if (el.offsetTop + el.offsetHeight > menu.scrollTop + menu.clientHeight) menu.scrollTop = el.offsetTop + el.offsetHeight - menu.clientHeight;
             }
 
-            backdrop.addEventListener('click', closeMenu);
-            menu.querySelector('.csel-title button').addEventListener('click', closeMenu);
             document.addEventListener('mousedown', ev => {
                 if (cur && !menu.contains(ev.target) && !cur.wrap.contains(ev.target)) closeMenu();
             });
+            document.addEventListener('touchstart', ev => {
+                if (cur && !menu.contains(ev.target) && !cur.wrap.contains(ev.target)) closeMenu();
+            }, { passive: true });
             document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeMenu(); });
-            window.addEventListener('resize', () => { if (cur) { isMobile() ? closeMenu() : position(); } });
-            window.addEventListener('scroll', ev => { if (cur && !isMobile() && !menu.contains(ev.target)) closeMenu(); }, true);
+            window.addEventListener('resize', () => { if (cur) position(); });
+            window.addEventListener('scroll', ev => { if (cur && !menu.contains(ev.target)) closeMenu(); }, true);
 
             function enhance(sel) {
                 const wrap = document.createElement('div');
