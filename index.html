@@ -1067,6 +1067,15 @@
             color: var(--ink);
         }
 
+        #ptr-confirm-modal .ptr-btn-confirm {
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            box-shadow: 0 8px 18px rgba(67, 56, 202, 0.28);
+        }
+
+        #ptr-confirm-modal .ptr-btn-confirm:hover {
+            box-shadow: 0 12px 22px rgba(67, 56, 202, 0.35);
+        }
+
         /* Success dialog for iOS and restricted browsers */
         .ios-success-modal {
             display: none;
@@ -1657,6 +1666,23 @@
                 </a>
                 <button class="meme-btn-cancel" onclick="closeIosModal()">
                     Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pull-to-Refresh Unsaved Changes Confirmation Modal -->
+    <div class="meme-modal" id="ptr-confirm-modal" role="dialog" aria-modal="true" aria-labelledby="ptr-confirm-title">
+        <div class="meme-card">
+            <div class="confirm-head" aria-hidden="true">🔄</div>
+            <h3 id="ptr-confirm-title" class="confirm-title">Refresh page &amp; clear changes?</h3>
+            <p class="confirm-sub">You have added or updated details. Refreshing will reload the page and clear your current changes.</p>
+            <div class="meme-btn-group">
+                <button id="btn-ptr-confirm" type="button" class="meme-btn-confirm ptr-btn-confirm">
+                    🔄 Refresh Anyway
+                </button>
+                <button id="btn-ptr-cancel" type="button" class="meme-btn-print">
+                    Keep Editing
                 </button>
             </div>
         </div>
@@ -3542,11 +3568,15 @@
             document.querySelectorAll('select').forEach(enhance);
         })();
 
+        handleIdLookup();
+        adjustA4Scale();
+
         (function initPullToRefresh() {
             const sidebar = document.getElementById('sidebar');
-            const previewPane = document.getElementById('preview-pane');
-            const previewStage = document.getElementById('preview-stage');
             const indicator = document.getElementById('ptr-indicator');
+            const confirmModal = document.getElementById('ptr-confirm-modal');
+            const confirmBtn = document.getElementById('btn-ptr-confirm');
+            const cancelBtn = document.getElementById('btn-ptr-cancel');
             if (!sidebar || !indicator) return;
             const icon = indicator.querySelector('svg');
 
@@ -3563,10 +3593,31 @@
             let activePane = null;
             let paneClearTimer = null;
 
+            function captureFormSnapshot() {
+                const fields = sidebar.querySelectorAll('input:not([type="file"]), textarea, select:not(#version-select)');
+                const data = Array.from(fields, (el, idx) => `${el.id || idx}:${el.value}`);
+                const logoEl = document.getElementById('out-logo');
+                data.push('logo:' + (logoEl ? logoEl.src : ''));
+                return data.join('\n');
+            }
+
+            const initialSnapshot = captureFormSnapshot();
+
+            function hasUserUpdates() {
+                return captureFormSnapshot() !== initialSnapshot;
+            }
+
+            function isLivePreviewActive() {
+                return document.body.classList.contains('mobile-preview') ||
+                    document.body.classList.contains('preview-fullscreen');
+            }
+
             function hasOpenOverlay() {
                 const meme = document.getElementById('meme-modal');
                 const ios = document.getElementById('ios-modal');
-                if ((meme && meme.style.display === 'flex') || (ios && ios.style.display === 'flex')) return true;
+                if ((meme && meme.style.display === 'flex') ||
+                    (ios && ios.style.display === 'flex') ||
+                    (confirmModal && confirmModal.style.display === 'flex')) return true;
                 if (document.querySelector('.csel-menu.open')) return true;
                 const courseMenu = document.getElementById('course-menu');
                 const teacherMenu = document.getElementById('teacher-menu');
@@ -3575,26 +3626,17 @@
             }
 
             function resolveContext(target) {
+                if (isLivePreviewActive()) return null;
                 if (!target || typeof target.closest !== 'function') return null;
-                if (target.closest('.combo-menu, .csel-menu, .meme-modal, .ios-success-modal, .pwa-toast, .mobile-sticky-action')) return null;
+                if (target.closest('.combo-menu, .csel-menu, .meme-modal, .ios-success-modal, .pwa-toast, .mobile-sticky-action, #preview-pane')) return null;
                 const ta = target.closest('textarea');
                 if (ta && ta.scrollHeight > ta.clientHeight + 2 && ta.scrollTop > 0) return null;
 
                 if (target.closest('.mobile-tabs')) {
-                    const pane = document.body.classList.contains('mobile-preview') ? previewPane : sidebar;
-                    return { scroller: null, pane };
+                    return { scroller: null, pane: sidebar };
                 }
                 if (target.closest('#sidebar')) {
                     return { scroller: sidebar, pane: sidebar };
-                }
-                if (target.closest('.preview-toolbar')) {
-                    return { scroller: null, pane: previewPane };
-                }
-                if (target.closest('#preview-stage')) {
-                    return { scroller: previewStage, pane: previewPane };
-                }
-                if (target.closest('#preview-pane')) {
-                    return { scroller: previewStage, pane: previewPane };
                 }
                 const rootScroller = document.scrollingElement || document.documentElement;
                 return { scroller: rootScroller, pane: null };
@@ -3650,8 +3692,65 @@
                 scroller = null;
             }
 
+            function executeRefresh() {
+                if (refreshing) return;
+                refreshing = true;
+                indicator.classList.remove('ready');
+                indicator.classList.add('snap', 'refreshing');
+                indicator.style.opacity = '';
+                indicator.style.transform = '';
+                if (icon) icon.style.transform = '';
+
+                const doReload = () => {
+                    window.location.reload();
+                };
+
+                if ('serviceWorker' in navigator && /^https?:$/i.test(window.location.protocol)) {
+                    const swCheck = navigator.serviceWorker.getRegistration()
+                        .then((reg) => (reg ? reg.update().catch(() => {}) : null))
+                        .catch(() => {});
+                    const timer = new Promise((resolve) => setTimeout(resolve, 350));
+                    Promise.race([swCheck, timer]).then(doReload);
+                } else {
+                    setTimeout(doReload, 220);
+                }
+            }
+
+            function openConfirmModal() {
+                if (!confirmModal) {
+                    executeRefresh();
+                    return;
+                }
+                confirmModal.style.display = 'flex';
+                if (cancelBtn) cancelBtn.focus({ preventScroll: true });
+            }
+
+            function closeConfirmModal() {
+                if (confirmModal) confirmModal.style.display = 'none';
+            }
+
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', () => {
+                    closeConfirmModal();
+                    executeRefresh();
+                });
+            }
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', closeConfirmModal);
+            }
+            if (confirmModal) {
+                confirmModal.addEventListener('click', (e) => {
+                    if (e.target === confirmModal) closeConfirmModal();
+                });
+            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && confirmModal && confirmModal.style.display === 'flex') {
+                    closeConfirmModal();
+                }
+            });
+
             document.addEventListener('touchstart', (e) => {
-                if (refreshing || e.touches.length !== 1 || hasOpenOverlay()) return;
+                if (refreshing || e.touches.length !== 1 || isLivePreviewActive() || hasOpenOverlay()) return;
                 const ctx = resolveContext(e.target);
                 if (!ctx) return;
                 if (ctx.scroller && ctx.scroller.scrollTop > 1) return;
@@ -3669,8 +3768,9 @@
 
             document.addEventListener('touchmove', (e) => {
                 if (!active || refreshing || e.touches.length !== 1) return;
-                if (!pulling && scroller && scroller.scrollTop > 1) {
-                    active = false;
+                if (isLivePreviewActive() || (!pulling && scroller && scroller.scrollTop > 1)) {
+                    if (pulling) resetPull();
+                    else active = false;
                     return;
                 }
                 const t = e.touches[0];
@@ -3697,43 +3797,22 @@
 
             function finishTouch(cancelled) {
                 if (!active) return;
-                const shouldRefresh = !cancelled && pulling && pullDist >= THRESHOLD;
+                const shouldRefresh = !cancelled && pulling && pullDist >= THRESHOLD && !isLivePreviewActive();
                 if (!shouldRefresh) {
                     resetPull();
                     return;
                 }
-                active = false;
-                decided = false;
-                pulling = false;
-                refreshing = true;
-                setPaneOffset(activePane, 0, true);
-                indicator.classList.remove('ready');
-                indicator.classList.add('snap', 'refreshing');
-                indicator.style.opacity = '';
-                indicator.style.transform = '';
-                if (icon) icon.style.transform = '';
-
-                const doReload = () => {
-                    window.location.reload();
-                };
-
-                if ('serviceWorker' in navigator && /^https?:$/i.test(window.location.protocol)) {
-                    const swCheck = navigator.serviceWorker.getRegistration()
-                        .then((reg) => (reg ? reg.update().catch(() => {}) : null))
-                        .catch(() => {});
-                    const timer = new Promise((resolve) => setTimeout(resolve, 350));
-                    Promise.race([swCheck, timer]).then(doReload);
+                resetPull();
+                if (hasUserUpdates()) {
+                    openConfirmModal();
                 } else {
-                    setTimeout(doReload, 220);
+                    executeRefresh();
                 }
             }
 
             document.addEventListener('touchend', () => finishTouch(false), { passive: true });
             document.addEventListener('touchcancel', () => finishTouch(true), { passive: true });
         })();
-
-        handleIdLookup();
-        adjustA4Scale();
     </script>
 </body>
 </html>

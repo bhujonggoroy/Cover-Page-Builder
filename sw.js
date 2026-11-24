@@ -1,4 +1,4 @@
-const CACHE_NAME = 'hstu-cover-builder-v2';
+const CACHE_NAME = 'hstu-cover-builder-v3';
 const APP_SHELL = [
     './',
     './index.html',
