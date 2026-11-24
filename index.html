@@ -218,6 +218,95 @@
             box-shadow: 0 6px 20px rgba(79, 70, 229, 0.08);
         }
 
+        /* Distinct light shade colors for main form sections */
+        .form-card.card-student {
+            background: #e8f1ff;
+            border-color: #c7dcff;
+        }
+        .form-card.card-student:hover { border-color: #9ec3ff; }
+        .form-card.card-student .card-header { border-bottom-color: #cfe0fc; }
+        .form-card.card-student .card-header span { background: #dbeafe; }
+        .form-card.card-student input,
+        .form-card.card-student textarea,
+        .form-card.card-student select,
+        .form-card.card-student .csel-btn {
+            background-color: #f5f9ff;
+            border-color: #cfe0fc;
+        }
+        .form-card.card-student input:focus,
+        .form-card.card-student textarea:focus,
+        .form-card.card-student select:focus,
+        .form-card.card-student .csel-btn:focus-visible,
+        .form-card.card-student .csel-btn[aria-expanded="true"] {
+            background-color: #fafcff;
+        }
+
+        .form-card.card-experiment {
+            background: #e6faef;
+            border-color: #bdecd1;
+        }
+        .form-card.card-experiment:hover { border-color: #8ee0b5; }
+        .form-card.card-experiment .card-header { border-bottom-color: #c6f0db; }
+        .form-card.card-experiment .card-header span { background: #d1fae5; }
+        .form-card.card-experiment input,
+        .form-card.card-experiment textarea,
+        .form-card.card-experiment select,
+        .form-card.card-experiment .csel-btn {
+            background-color: #f4fcf7;
+            border-color: #c6f0db;
+        }
+        .form-card.card-experiment input:focus,
+        .form-card.card-experiment textarea:focus,
+        .form-card.card-experiment select:focus,
+        .form-card.card-experiment .csel-btn:focus-visible,
+        .form-card.card-experiment .csel-btn[aria-expanded="true"] {
+            background-color: #fafefc;
+        }
+
+        .form-card.card-schedule {
+            background: #fff3de;
+            border-color: #f6d59c;
+        }
+        .form-card.card-schedule:hover { border-color: #efc073; }
+        .form-card.card-schedule .card-header { border-bottom-color: #f9e0b5; }
+        .form-card.card-schedule .card-header span { background: #fef3c7; }
+        .form-card.card-schedule input,
+        .form-card.card-schedule textarea,
+        .form-card.card-schedule select,
+        .form-card.card-schedule .csel-btn {
+            background-color: #fffaf0;
+            border-color: #f9e0b5;
+        }
+        .form-card.card-schedule input:focus,
+        .form-card.card-schedule textarea:focus,
+        .form-card.card-schedule select:focus,
+        .form-card.card-schedule .csel-btn:focus-visible,
+        .form-card.card-schedule .csel-btn[aria-expanded="true"] {
+            background-color: #fffdf7;
+        }
+
+        .form-card.card-submitted {
+            background: #f1edff;
+            border-color: #d7ccfe;
+        }
+        .form-card.card-submitted:hover { border-color: #bca9fd; }
+        .form-card.card-submitted .card-header { border-bottom-color: #dfd6fe; }
+        .form-card.card-submitted .card-header span { background: #ede9fe; }
+        .form-card.card-submitted input,
+        .form-card.card-submitted textarea,
+        .form-card.card-submitted select,
+        .form-card.card-submitted .csel-btn {
+            background-color: #f8f6ff;
+            border-color: #dfd6fe;
+        }
+        .form-card.card-submitted input:focus,
+        .form-card.card-submitted textarea:focus,
+        .form-card.card-submitted select:focus,
+        .form-card.card-submitted .csel-btn:focus-visible,
+        .form-card.card-submitted .csel-btn[aria-expanded="true"] {
+            background-color: #fcfbff;
+        }
+
         .card-header {
             display: flex;
             align-items: center;
@@ -1547,7 +1636,7 @@
         </div>
 
         <!-- Card 2: Student Information -->
-        <div class="form-card">
+        <div class="form-card card-student">
             <div class="card-header">
                 <span>🧑‍🎓</span> Student Details
             </div>
@@ -1592,7 +1681,7 @@
         </div>
 
         <!-- Card 1: Experiment & Course -->
-        <div class="form-card">
+        <div class="form-card card-experiment">
             <div class="card-header">
                 <span>🔬</span> Experiment & Course
             </div>
@@ -1615,7 +1704,7 @@
         </div>
 
         <!-- Card 3: Important Dates -->
-        <div class="form-card">
+        <div class="form-card card-schedule">
             <div class="card-header">
                 <span>📅</span> Lab Schedule
             </div>
@@ -1632,7 +1721,7 @@
         </div>
 
         <!-- Card 4: Instructor Details -->
-        <div class="form-card">
+        <div class="form-card card-submitted">
             <div class="card-header">
                 <span>👨‍🏫</span> Submitted To
             </div>
