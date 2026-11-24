@@ -68,9 +68,8 @@
 
         /* ================= SIDEBAR UI ================= */
         .sidebar {
-            width: clamp(320px, 31vw, 480px);
-            min-width: 300px;
-            flex-shrink: 0;
+            width: 420px;
+            min-width: 420px;
             background: var(--surface);
             padding: 0 20px 20px 20px;
             overflow-y: auto;
@@ -92,12 +91,11 @@
             top: 0;
             z-index: 5;
             display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 10px;
-            padding: 16px 0 12px 0;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0 14px 0;
             margin-bottom: 2px;
-            background: linear-gradient(to bottom, #ffffff 85%, rgba(255, 255, 255, 0));
+            background: linear-gradient(to bottom, #ffffff 82%, rgba(255, 255, 255, 0));
         }
 
         .header-brand {
@@ -353,134 +351,23 @@
         /* ================= PREVIEW CANVAS UI ================= */
         .preview-pane {
             flex: 1;
-            min-width: 0;
-            height: 100%;
-            overflow: hidden;
+            padding: 40px;
+            overflow: auto;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
             background-color: #e8edf4;
             background-image: radial-gradient(#c5cedc 1px, transparent 1px);
             background-size: 20px 20px;
             position: relative;
         }
 
-        .preview-toolbar {
-            flex: none;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px 14px;
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--line);
-            z-index: 15;
-        }
-
-        .preview-tool-group {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            min-width: 0;
-        }
-
-        .preview-style-group label {
-            font-size: 0.76rem;
-            font-weight: 700;
-            color: var(--ink-3);
-            white-space: nowrap;
-        }
-
-        .preview-style-group .csel {
-            width: auto;
-            min-width: 156px;
-        }
-
-        .preview-style-group .csel-btn {
-            padding: 7px 10px;
-            font-size: 0.84rem;
-            min-height: 34px;
-        }
-
-        .zoom-box {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .pt-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            min-height: 34px;
-            padding: 6px 11px;
-            background: var(--surface-2);
-            border: 1.5px solid var(--line);
-            border-radius: 9px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--ink-2);
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.16s ease;
-        }
-
-        .pt-btn:hover {
-            border-color: var(--line-strong);
-            background: #ffffff;
-        }
-
-        .pt-btn.active {
-            background: var(--brand-soft);
-            border-color: var(--brand);
-            color: var(--brand-dark);
-        }
-
-        .pt-btn.pt-btn-primary {
-            background: var(--brand);
-            border-color: var(--brand);
-            color: #ffffff;
-        }
-
-        .pt-btn.pt-btn-primary:hover {
-            background: var(--brand-dark);
-            border-color: var(--brand-dark);
-        }
-
-        .pt-zoom-pct {
-            min-width: 54px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .preview-stage {
-            flex: 1;
-            min-height: 0;
-            width: 100%;
-            overflow: auto;
-            padding: clamp(16px, 2.8vw, 48px);
-            display: flex;
-            flex-direction: column;
-            -webkit-overflow-scrolling: touch;
-        }
-
         .preview-scaler {
             display: block;
             flex-shrink: 0;
-            margin: auto;
             width: 794px;
             height: 1120px;
             transform-origin: top left;
-        }
-
-        @media screen and (min-width: 821px) {
-            body.preview-expanded .sidebar {
-                display: none;
-            }
         }
 
         /* Single Page A4 Spec */
@@ -618,8 +505,7 @@
         }
 
         /* ================= COVER STYLE PICKER ================= */
-        .tpl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-        .tpl-btn:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .tpl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .tpl-btn {
             background: var(--surface-2);
             border: 1.5px solid var(--line);
@@ -700,7 +586,7 @@
         }
 
         /* ================= TOP TEMPLATE SWITCH ================= */
-        .tpl-quick { display: flex; align-items: center; gap: 8px; margin-top: 0; }
+        .tpl-quick { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
         .tpl-quick label { font-size: 0.76rem; font-weight: 700; color: var(--ink-3); white-space: nowrap; }
         .tpl-select {
             flex: 1; min-width: 0; padding: 8px 10px; border-radius: 10px;
@@ -858,9 +744,9 @@
             .mobile-tabs {
                 display: flex;
                 position: fixed;
-                top: calc(10px + env(safe-area-inset-top, 0px));
-                left: calc(12px + env(safe-area-inset-left, 0px));
-                right: calc(12px + env(safe-area-inset-right, 0px));
+                top: 10px;
+                left: 12px;
+                right: 12px;
                 height: 48px;
                 background: rgba(255, 255, 255, 0.92);
                 backdrop-filter: blur(12px);
@@ -896,10 +782,9 @@
                 min-width: 100%;
                 height: 100vh;
                 height: 100dvh;
-                padding: calc(70px + env(safe-area-inset-top, 0px)) calc(14px + env(safe-area-inset-right, 0px)) calc(100px + env(safe-area-inset-bottom, 0px)) calc(14px + env(safe-area-inset-left, 0px));
+                padding: 70px 14px 100px 14px;
                 box-shadow: none;
                 border-right: none;
-                display: flex;
             }
 
             .sidebar-header {
@@ -908,8 +793,7 @@
                 background: none;
             }
 
-            #btn-download-desktop,
-            #btn-preview-expand {
+            #btn-download-desktop {
                 display: none;
             }
 
@@ -917,39 +801,8 @@
                 width: 100%;
                 height: 100vh;
                 height: 100dvh;
-                padding: calc(66px + env(safe-area-inset-top, 0px)) 0 calc(76px + env(safe-area-inset-bottom, 0px)) 0;
+                padding: 70px 10px 90px 10px;
                 display: none;
-            }
-
-            body.mobile-view-preview .sidebar {
-                display: none;
-            }
-
-            body.mobile-view-preview .preview-pane {
-                display: flex;
-            }
-
-            .preview-toolbar {
-                padding: 8px 12px;
-                gap: 8px;
-            }
-
-            .preview-style-group {
-                flex: 1 1 175px;
-            }
-
-            .preview-style-group .csel {
-                flex: 1;
-                min-width: 120px;
-            }
-
-            .preview-style-group .csel-btn {
-                min-height: 40px;
-                font-size: 14px;
-            }
-
-            .preview-stage {
-                padding: 14px 10px;
             }
 
             .mobile-sticky-action {
@@ -970,6 +823,27 @@
             .mobile-sticky-action .btn-download {
                 width: 100%;
                 margin: 0;
+            }
+        }
+
+        /* ---------- Phones & tablets in portrait (touch-friendly) ---------- */
+        @media screen and (max-width: 820px) {
+            .mobile-tabs {
+                top: calc(10px + env(safe-area-inset-top, 0px));
+                left: calc(12px + env(safe-area-inset-left, 0px));
+                right: calc(12px + env(safe-area-inset-right, 0px));
+            }
+
+            .sidebar {
+                padding-top: calc(70px + env(safe-area-inset-top, 0px));
+                padding-left: calc(14px + env(safe-area-inset-left, 0px));
+                padding-right: calc(14px + env(safe-area-inset-right, 0px));
+                padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+            }
+
+            .preview-pane {
+                padding-top: calc(70px + env(safe-area-inset-top, 0px));
+                padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px));
             }
 
             /* 16px stops iOS from zooming the page when a field is focused */
@@ -998,7 +872,7 @@
         }
 
         /* ---------- Small phones ---------- */
-        @media screen and (max-width: 440px) {
+        @media screen and (max-width: 420px) {
             .grid-2 {
                 grid-template-columns: 1fr;
             }
@@ -1011,27 +885,19 @@
             .brand-title h2 {
                 font-size: 1rem;
             }
-
-            .preview-style-group label {
-                display: none;
-            }
         }
 
         /* ---------- Tablets landscape / small laptops ---------- */
-        @media screen and (min-width: 821px) and (max-width: 1120px) {
+        @media screen and (min-width: 821px) and (max-width: 1100px) {
             .sidebar {
-                width: clamp(300px, 34vw, 370px);
-                min-width: 300px;
+                width: 340px;
+                min-width: 340px;
                 padding-left: 14px;
                 padding-right: 14px;
             }
 
-            .preview-toolbar {
-                padding: 9px 14px;
-            }
-
-            .preview-stage {
-                padding: 20px;
+            .preview-pane {
+                padding: 24px;
             }
 
             .grid-2 {
@@ -1039,41 +905,19 @@
             }
         }
 
-        /* ---------- Short laptops & landscape phones ---------- */
-        @media screen and (max-height: 700px) {
-            .sidebar-header,
-            #btn-download-desktop {
-                position: static;
-            }
-        }
-
-        @media screen and (max-width: 820px) and (max-height: 520px) {
-            .mobile-tabs {
-                top: 6px;
-                height: 40px;
-            }
-
+        /* ---------- Large desktops ---------- */
+        @media screen and (min-width: 1500px) {
             .sidebar {
-                padding-top: 54px;
-                padding-bottom: 72px;
+                width: 460px;
+                min-width: 460px;
             }
 
-            body.mobile-view-preview .preview-pane {
-                padding-top: 52px;
-                padding-bottom: 62px;
-            }
-
-            .mobile-sticky-action {
-                padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)) 12px;
-            }
-
-            .mobile-sticky-action .btn-download {
-                min-height: 42px;
-                padding: 10px;
-                font-size: 0.94rem;
+            .preview-pane {
+                padding: 48px;
             }
         }
 
+        /* ---------- Short screens (landscape phones, small laptops) ---------- */
         @media screen and (max-height: 520px) {
             .meme-card img {
                 max-height: 30vh;
@@ -1161,12 +1005,11 @@
                 display: block !important;
             }
 
-            .sidebar, .mobile-tabs, .mobile-sticky-action, .preview-toolbar, .meme-modal, .ios-success-modal {
+            .sidebar, .mobile-tabs, .mobile-sticky-action, .meme-modal, .ios-success-modal {
                 display: none !important;
             }
 
-            .preview-pane,
-            body.mobile-view-preview .preview-pane {
+            .preview-pane {
                 padding: 0 !important;
                 margin: 0 !important;
                 background: #ffffff !important;
@@ -1177,23 +1020,12 @@
                 position: static !important;
                 width: 100% !important;
                 height: 100% !important;
-                overflow: visible !important;
-            }
-
-            .preview-stage {
-                padding: 0 !important;
-                margin: 0 !important;
-                overflow: visible !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
             }
 
             .preview-scaler {
                 transform: none !important;
                 width: auto !important;
                 height: auto !important;
-                margin: 0 !important;
             }
 
             .page {
@@ -1218,7 +1050,8 @@
         .confirm-list dd.missing { color: #b91c1c; font-weight: 700; }
 
         /* ================= CUSTOM DROPDOWNS (replace the native select popup) =================
-           Anchored themed popover directly under (or above) the field on every device. */
+           Desktop: a small themed popover under the field.
+           Phone / tablet (<= 820px): a bottom sheet with big touch rows. */
         .csel { position: relative; width: 100%; min-width: 0; }
         .tpl-quick .csel { flex: 1; }
         .csel > select { display: none !important; }
@@ -1249,6 +1082,7 @@
         .csel-btn .csel-chev { flex: none; width: 14px; height: 14px; color: var(--ink-3); transition: transform 0.18s ease; }
         .csel-btn[aria-expanded="true"] .csel-chev { transform: rotate(180deg); color: var(--brand); }
 
+        .csel-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); z-index: 100000; display: none; }
         .csel-menu {
             position: fixed; z-index: 100001; display: none;
             background: #ffffff;
@@ -1262,6 +1096,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
         .csel-menu.open { display: block; }
+        .csel-title { display: none; }
         .csel-item {
             display: flex; align-items: center; gap: 10px;
             padding: 9px 10px;
@@ -1276,142 +1111,38 @@
         .csel-item.selected { background: var(--brand-soft); color: var(--brand-dark); font-weight: 700; }
         .csel-item.selected .csel-check { visibility: visible; }
 
+        @keyframes cselSheetUp { from { transform: translateY(36px); opacity: 0; } to { transform: none; opacity: 1; } }
         @media screen and (max-width: 820px) {
+            .csel-backdrop.open { display: block; }
             .csel-btn { font-size: 16px; min-height: 46px; }
             .tpl-quick .csel-btn { min-height: 40px; font-size: 15px; }
+            .csel-menu {
+                left: 0 !important; right: 0 !important; top: auto !important; bottom: 0 !important;
+                width: auto !important;
+                max-height: 72vh !important; max-height: 72dvh !important;
+                border: none;
+                border-radius: 22px 22px 0 0;
+                padding: 0 10px calc(14px + env(safe-area-inset-bottom, 0px)) 10px;
+                box-shadow: 0 -14px 40px rgba(15, 23, 42, 0.28);
+                animation: cselSheetUp 0.22s ease;
+            }
+            .csel-title {
+                display: flex; align-items: center; justify-content: space-between; gap: 12px;
+                position: sticky; top: 0; z-index: 1;
+                margin: 0 -10px 6px -10px;
+                padding: 16px 12px 12px 20px;
+                background: #ffffff;
+                border-bottom: 1px solid var(--line);
+                font-size: 0.98rem; font-weight: 800; color: var(--ink);
+            }
+            .csel-title button {
+                flex: none; width: 34px; height: 34px; border: none; border-radius: 50%;
+                background: var(--surface-2); color: var(--ink-2); font-size: 1rem; cursor: pointer;
+            }
+            .csel-item { padding: 14px 12px; min-height: 52px; font-size: 1rem; border-radius: 12px; }
+            .csel-item .csel-check { width: 20px; height: 20px; }
         }
-        @media print { .csel-menu { display: none !important; } }
-
-        /* ================= CUSTOM DATE PICKER (same anchored calendar on every device) ================= */
-        .cdate { position: relative; width: 100%; min-width: 0; }
-        .cdate > input[type="date"] { display: none !important; }
-        .cdate-btn {
-            width: 100%;
-            display: flex; align-items: center; justify-content: space-between; gap: 8px;
-            text-align: left;
-            padding: 10px 12px;
-            background: var(--surface-2);
-            border: 1.5px solid var(--line);
-            border-radius: 10px;
-            font-family: inherit; font-size: 0.86rem; line-height: 1.3;
-            color: var(--ink-2);
-            cursor: pointer;
-            transition: all 0.18s ease;
-        }
-        .cdate-btn:hover { border-color: var(--line-strong); }
-        .cdate-btn:focus-visible,
-        .cdate-btn[aria-expanded="true"] {
-            outline: none;
-            border-color: var(--brand);
-            box-shadow: 0 0 0 4px var(--brand-ring);
-            background: #ffffff;
-        }
-        .cdate-btn .cdate-text { flex: 1; min-width: 0; font-variant-numeric: tabular-nums; }
-        .cdate-btn.is-empty .cdate-text { color: var(--ink-3); }
-        .cdate-btn .cdate-ico { flex: none; width: 16px; height: 16px; color: var(--ink); }
-
-        .cdate-pop {
-            position: fixed; z-index: 100002; display: none;
-            width: min(272px, calc(100vw - 24px));
-            background: #ffffff;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
-            padding: 12px 12px 10px;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            user-select: none;
-            -webkit-user-select: none;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        .cdate-pop.open { display: block; }
-        .cdate-head {
-            display: flex; align-items: center; justify-content: space-between; gap: 6px;
-            margin-bottom: 10px;
-        }
-        .cdate-ym-btn {
-            display: inline-flex; align-items: center; gap: 5px;
-            border: none; background: transparent;
-            padding: 4px 6px; border-radius: 6px;
-            font-family: inherit; font-size: 0.9rem; font-weight: 700; color: #0f172a;
-            cursor: pointer;
-        }
-        .cdate-ym-btn:hover,
-        .cdate-ym-btn[aria-expanded="true"] { background: #f1f5f9; }
-        .cdate-arrows { display: inline-flex; align-items: center; gap: 4px; }
-        .cdate-nav {
-            width: 30px; height: 30px;
-            display: inline-flex; align-items: center; justify-content: center;
-            border: 1px solid transparent; background: transparent;
-            border-radius: 4px; color: #0f172a; cursor: pointer;
-            transition: background 0.14s ease, border-color 0.14s ease;
-        }
-        .cdate-nav:hover { background: #eff6ff; border-color: #93c5fd; }
-        .cdate-nav:active { background: #dbeafe; border-color: #3b82f6; }
-
-        .cdate-wds, .cdate-days {
-            display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
-            text-align: center;
-        }
-        .cdate-wds { margin-bottom: 4px; }
-        .cdate-wd {
-            font-size: 0.78rem; font-weight: 600; color: #1e293b;
-            padding: 4px 0;
-        }
-        .cdate-day {
-            height: 32px;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid transparent;
-            background: transparent;
-            border-radius: 3px;
-            font-family: inherit; font-size: 0.84rem; font-weight: 500;
-            color: #0f172a;
-            cursor: pointer;
-        }
-        .cdate-day.is-out { color: #64748b; }
-        .cdate-day:hover { background: #eff6ff; }
-        .cdate-day.is-today { border-color: #475569; }
-        .cdate-day.is-selected {
-            background: #0066ff;
-            border-color: #0066ff;
-            color: #ffffff;
-            font-weight: 700;
-        }
-        .cdate-day.is-today.is-selected {
-            box-shadow: inset 0 0 0 1px #ffffff;
-        }
-
-        .cdate-months {
-            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 6px; padding: 6px 0;
-        }
-        .cdate-month-btn {
-            padding: 9px 4px;
-            border: 1px solid transparent;
-            border-radius: 6px;
-            background: var(--surface-2);
-            font-family: inherit; font-size: 0.82rem; font-weight: 600;
-            color: #0f172a; cursor: pointer;
-        }
-        .cdate-month-btn:hover { background: #eff6ff; border-color: #93c5fd; }
-        .cdate-month-btn.is-selected { background: #0066ff; color: #ffffff; border-color: #0066ff; }
-
-        .cdate-foot {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-top: 8px; padding: 2px 6px 0;
-        }
-        .cdate-act {
-            border: none; background: transparent;
-            padding: 5px 6px; border-radius: 6px;
-            font-family: inherit; font-size: 0.84rem; font-weight: 600;
-            color: #0066ff; cursor: pointer;
-        }
-        .cdate-act:hover { background: #eff6ff; }
-
-        @media screen and (max-width: 820px) {
-            .cdate-btn { font-size: 16px; min-height: 46px; }
-        }
-        @media print { .cdate-pop { display: none !important; } }
+        @media print { .csel-menu, .csel-backdrop { display: none !important; } }
     </style>
 </head>
 <body>
@@ -1476,11 +1207,8 @@
             <div class="tpl-quick">
                 <label for="tpl-select">Layout</label>
                 <select id="tpl-select" class="tpl-select" aria-label="Cover layout">
-                    <option value="classic">Classic (Default)</option>
-                    <option value="modern">Modern</option>
-                    <option value="minimal">Minimal</option>
-                    <option value="formal">Formal</option>
-                    <option value="newdesign">New Design</option>
+                    <option value="">Default cover</option>
+                    <option value="newdesign">New design</option>
                 </select>
             </div>
         </div>
@@ -1631,11 +1359,6 @@
                     <span class="tpl-name">Formal</span>
                     <span class="tpl-desc">Degree at top, double frame</span>
                 </button>
-                <button type="button" class="tpl-btn" data-tpl="newdesign" aria-pressed="false">
-                    <span class="tpl-thumb t-newdesign"></span>
-                    <span class="tpl-name">New Design</span>
-                    <span class="tpl-desc">Degree top, dept under logo</span>
-                </button>
             </div>
             <label class="check-row">
                 <input type="checkbox" id="in-show-dept">
@@ -1661,31 +1384,8 @@
 
     <!-- Live Preview Sheet -->
     <div class="preview-pane" id="preview-pane">
-        <div class="preview-toolbar" id="preview-toolbar">
-            <div class="preview-tool-group preview-style-group">
-                <label for="preview-tpl-select">Cover Style</label>
-                <select id="preview-tpl-select" aria-label="Change cover preview style">
-                    <option value="classic">Classic (Default)</option>
-                    <option value="modern">Modern</option>
-                    <option value="minimal">Minimal</option>
-                    <option value="formal">Formal</option>
-                    <option value="newdesign">New Design</option>
-                </select>
-            </div>
-            <div class="preview-tool-group preview-view-group">
-                <div class="zoom-box" role="group" aria-label="Preview zoom">
-                    <button type="button" class="pt-btn active" id="btn-zoom-fit" title="Fit cover page to screen">Fit</button>
-                    <button type="button" class="pt-btn" id="btn-zoom-out" aria-label="Zoom out" title="Zoom out">−</button>
-                    <button type="button" class="pt-btn pt-zoom-pct" id="btn-zoom-100" title="Set zoom to 100%">100%</button>
-                    <button type="button" class="pt-btn" id="btn-zoom-in" aria-label="Zoom in" title="Zoom in">+</button>
-                </div>
-                <button type="button" class="pt-btn" id="btn-preview-expand" title="Expand preview to full width">⛶ Full Preview</button>
-                <button type="button" class="pt-btn" id="btn-browser-fullscreen" title="Toggle full screen">Full Screen</button>
-            </div>
-        </div>
-        <div class="preview-stage" id="preview-stage">
-            <div class="preview-scaler" id="preview-scaler">
-                <div class="page tpl-classic" id="printable-cover">
+        <div class="preview-scaler" id="preview-scaler">
+            <div class="page tpl-classic" id="printable-cover">
                 <div class="border-container">
                     
                     <!-- 0. Degree line (shown by the Formal template only) -->
@@ -1752,7 +1452,6 @@
 
                 </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -2046,10 +1745,7 @@
             const r = teacherNameInput.getBoundingClientRect();
             const need = Math.min(teacherMenu.scrollHeight, 300) + 90;
             const below = window.innerHeight - r.bottom;
-            const openUp = below < need && r.top > below;
-            if (openUp) teacherMenu.classList.add('up');
-            const space = openUp ? (r.top - 70) : (below - 85);
-            teacherMenu.style.maxHeight = Math.max(120, Math.min(300, space)) + 'px';
+            if (below < need && r.top > below) teacherMenu.classList.add('up');
         }
 
         function renderTeacherMenu() {
@@ -2409,10 +2105,7 @@
             const r = courseCodeInput.getBoundingClientRect();
             const need = Math.min(courseMenu.scrollHeight, 300) + 90; // + room for the sticky download bar
             const below = window.innerHeight - r.bottom;
-            const openUp = below < need && r.top > below;
-            if (openUp) courseMenu.classList.add('up');
-            const space = openUp ? (r.top - 70) : (below - 85);
-            courseMenu.style.maxHeight = Math.max(120, Math.min(300, space)) + 'px';
+            if (below < need && r.top > below) courseMenu.classList.add('up');
         }
         function closeCourseMenu() {
             courseMenu.hidden = true;
@@ -2569,138 +2262,52 @@
             img.src = url;
         });
 
-        let previewZoomMode = 'fit'; // 'fit' | 'manual'
-        let manualPreviewZoom = 1;
-        let currentPreviewScale = 1;
-
         function switchMobileTab(tab) {
+            const sidebar = document.getElementById('sidebar');
+            const preview = document.getElementById('preview-pane');
             const tabEdit = document.getElementById('tab-edit');
             const tabPreview = document.getElementById('tab-preview');
-            const showPreview = tab !== 'edit';
 
-            document.body.classList.toggle('mobile-view-preview', showPreview);
-            tabEdit.classList.toggle('active', !showPreview);
-            tabPreview.classList.toggle('active', showPreview);
-            if (showPreview) {
-                requestAnimationFrame(adjustA4Scale);
+            if (tab === 'edit') {
+                sidebar.style.display = 'flex';
+                preview.style.display = 'none';
+                tabEdit.classList.add('active');
+                tabPreview.classList.remove('active');
+            } else {
+                sidebar.style.display = 'none';
+                preview.style.display = 'flex';
+                tabPreview.classList.add('active');
+                tabEdit.classList.remove('active');
+                adjustA4Scale();
             }
         }
 
         function adjustA4Scale() {
             const scaler = document.getElementById('preview-scaler');
-            const stage = document.getElementById('preview-stage');
-            const fitBtn = document.getElementById('btn-zoom-fit');
-            const pctBtn = document.getElementById('btn-zoom-100');
+            const previewPane = document.getElementById('preview-pane');
 
             // Preview is hidden (e.g. mobile "Edit" tab) - nothing to measure
-            if (!stage || !stage.clientWidth) return;
+            if (!previewPane.clientWidth) return;
 
-            const cs = getComputedStyle(stage);
+            // Fit the A4 sheet to whatever space the device gives the preview
+            const cs = getComputedStyle(previewPane);
             const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
             const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-            const availW = Math.max(120, stage.clientWidth - padX);
-            const availH = Math.max(120, stage.clientHeight - padY);
+            const availW = previewPane.clientWidth - padX;
+            const availH = previewPane.clientHeight - padY;
 
-            let scale;
-            if (previewZoomMode === 'manual') {
-                scale = Math.max(0.35, Math.min(manualPreviewZoom, 1.6));
-            } else {
-                scale = availW / 794;
-                if (window.innerWidth > 820) {
-                    scale = Math.min(scale, availH / 1120);
-                    scale = Math.max(0.25, Math.min(scale, 1.45));
-                } else {
-                    scale = Math.max(0.25, Math.min(scale, 1.2));
-                }
+            let scale = availW / 794;
+            if (window.innerWidth > 820) {
+                scale = Math.min(scale, availH / 1120);
             }
+            scale = Math.max(0.2, Math.min(scale, 1));
 
-            currentPreviewScale = scale;
             scaler.style.transform = `scale(${scale})`;
             scaler.style.width = (794 * scale) + 'px';
             scaler.style.height = (1120 * scale) + 'px';
-
-            if (fitBtn) fitBtn.classList.toggle('active', previewZoomMode === 'fit');
-            if (pctBtn) {
-                pctBtn.textContent = Math.round(scale * 100) + '%';
-                pctBtn.classList.toggle('active', previewZoomMode === 'manual' && Math.abs(scale - 1) < 0.01);
-            }
         }
 
-        (function initPreviewToolbarControls() {
-            const fitBtn = document.getElementById('btn-zoom-fit');
-            const outBtn = document.getElementById('btn-zoom-out');
-            const pctBtn = document.getElementById('btn-zoom-100');
-            const inBtn = document.getElementById('btn-zoom-in');
-            const expandBtn = document.getElementById('btn-preview-expand');
-            const fsBtn = document.getElementById('btn-browser-fullscreen');
-
-            fitBtn.addEventListener('click', () => {
-                previewZoomMode = 'fit';
-                adjustA4Scale();
-            });
-            outBtn.addEventListener('click', () => {
-                previewZoomMode = 'manual';
-                manualPreviewZoom = Math.max(0.35, Math.round((currentPreviewScale - 0.1) * 20) / 20);
-                adjustA4Scale();
-            });
-            inBtn.addEventListener('click', () => {
-                previewZoomMode = 'manual';
-                manualPreviewZoom = Math.min(1.6, Math.round((currentPreviewScale + 0.1) * 20) / 20);
-                adjustA4Scale();
-            });
-            pctBtn.addEventListener('click', () => {
-                previewZoomMode = 'manual';
-                manualPreviewZoom = 1;
-                adjustA4Scale();
-            });
-
-            function syncExpandButton() {
-                const expanded = document.body.classList.contains('preview-expanded');
-                expandBtn.classList.toggle('pt-btn-primary', expanded);
-                expandBtn.textContent = expanded ? '← Show Editor' : '⛶ Full Preview';
-                expandBtn.setAttribute('aria-pressed', expanded ? 'true' : 'false');
-            }
-            expandBtn.addEventListener('click', () => {
-                document.body.classList.toggle('preview-expanded');
-                syncExpandButton();
-                requestAnimationFrame(adjustA4Scale);
-            });
-            syncExpandButton();
-
-            if (!document.fullscreenEnabled) {
-                fsBtn.style.display = 'none';
-            } else {
-                const syncFsButton = () => {
-                    const isFs = !!document.fullscreenElement;
-                    fsBtn.classList.toggle('active', isFs);
-                    fsBtn.textContent = isFs ? 'Exit Full Screen' : 'Full Screen';
-                    requestAnimationFrame(adjustA4Scale);
-                };
-                fsBtn.addEventListener('click', async () => {
-                    try {
-                        if (document.fullscreenElement) await document.exitFullscreen();
-                        else await document.documentElement.requestFullscreen();
-                    } catch (e) {
-                        // Fallback to expanded preview if browser blocks fullscreen
-                        document.body.classList.add('preview-expanded');
-                        syncExpandButton();
-                        requestAnimationFrame(adjustA4Scale);
-                    }
-                });
-                document.addEventListener('fullscreenchange', syncFsButton);
-                syncFsButton();
-            }
-        })();
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 820) {
-                const sb = document.getElementById('sidebar');
-                const pp = document.getElementById('preview-pane');
-                if (sb.style.display) sb.style.display = '';
-                if (pp.style.display) pp.style.display = '';
-            }
-            adjustA4Scale();
-        });
+        window.addEventListener('resize', adjustA4Scale);
         window.addEventListener('orientationchange', () => setTimeout(adjustA4Scale, 200));
         /* Run the scale update on the next frame so resizing never re-triggers the observer in the same cycle */
         if (window.ResizeObserver) {
@@ -2708,7 +2315,7 @@
             new ResizeObserver(() => {
                 cancelAnimationFrame(scaleFrame);
                 scaleFrame = requestAnimationFrame(adjustA4Scale);
-            }).observe(document.getElementById('preview-stage'));
+            }).observe(document.getElementById('preview-pane'));
         }
 
         function openMemeModal() {
@@ -2763,12 +2370,21 @@
 
         function executeNativePrint() {
             closeMemeModal();
+            const preview = document.getElementById('preview-pane');
+            const sidebar = document.getElementById('sidebar');
+            const prevPreviewDisplay = preview.style.display;
+            const prevSidebarDisplay = sidebar.style.display;
             const prevTitle = document.title;
+
+            preview.style.display = 'flex';
+            sidebar.style.display = 'none';
             document.title = safeFileBase() + ''; // browsers use the title as the default PDF name
 
             let restored = false;
             const restore = () => {
                 if (restored) return; restored = true;
+                preview.style.display = prevPreviewDisplay;
+                sidebar.style.display = prevSidebarDisplay;
                 document.title = prevTitle;
                 window.removeEventListener('afterprint', restore);
                 adjustA4Scale();
@@ -2910,7 +2526,6 @@
         const pageEl = document.getElementById('printable-cover');
         const TEMPLATES = ['classic', 'modern', 'minimal', 'formal', 'newdesign'];
         const tplSelect = document.getElementById('tpl-select');
-        const previewTplSelect = document.getElementById('preview-tpl-select');
         const tplButtons = Array.from(document.querySelectorAll('.tpl-btn'));
         const showDeptBox = document.getElementById('in-show-dept');
         const outDegreeTop = document.getElementById('out-degree-top');
@@ -2926,8 +2541,7 @@
 
         function applyCoverStyle() {
             pageEl.className = 'page tpl-' + currentTpl + (showDeptBox.checked ? ' show-dept' : '');
-            if (tplSelect) tplSelect.value = currentTpl;
-            if (previewTplSelect) previewTplSelect.value = currentTpl;
+            tplSelect.value = currentTpl === 'newdesign' ? 'newdesign' : '';
             tplButtons.forEach(b => {
                 const on = b.dataset.tpl === currentTpl;
                 b.classList.toggle('active', on);
@@ -2949,7 +2563,6 @@
             adjustA4Scale();
         }));
         tplSelect.addEventListener('change', () => { currentTpl = tplSelect.value || 'classic'; applyCoverStyle(); adjustA4Scale(); });
-        previewTplSelect.addEventListener('change', () => { currentTpl = previewTplSelect.value || 'classic'; applyCoverStyle(); adjustA4Scale(); });
         showDeptBox.addEventListener('change', () => { applyCoverStyle(); adjustA4Scale(); });
 
         syncTopDegree();
@@ -2958,23 +2571,24 @@
 
 
         /* ===== Custom dropdowns for every <select> =====
-           Native select popups look different on every device and clash with the page.
-           The real <select> stays in the page (hidden), so all existing logic and values keep working.
-           On every device, the dropdown opens in place directly under (or above) its field. */
+           Native select popups look different on every phone and clash with the page.
+           The real <select> stays in the page (hidden), so all existing logic and values keep working. */
         (function () {
+            const isMobile = () => window.innerWidth <= 820;
             const CHEV = '<svg class="csel-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
             const CHECK = '<svg class="csel-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
             const valueDesc = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
 
+            const backdrop = document.createElement('div');
+            backdrop.className = 'csel-backdrop';
             const menu = document.createElement('div');
             menu.className = 'csel-menu';
-            menu.innerHTML = '<div class="csel-list" role="listbox"></div>';
-            document.body.appendChild(menu);
+            menu.innerHTML = '<div class="csel-title"><span></span><button type="button" aria-label="Close">\u2715</button></div><div class="csel-list" role="listbox"></div>';
+            document.body.append(backdrop, menu);
+            const titleEl = menu.querySelector('.csel-title span');
             const listEl = menu.querySelector('.csel-list');
-            const topBar = document.querySelector('.mobile-tabs');
-            const botBar = document.querySelector('.mobile-sticky-action');
 
-            let cur = null;       // { sel, btn, wrap, title }
+            let cur = null;       // { sel, btn, wrap, title, refresh }
             let items = [];       // [{ el, index }]
             let active = -1;
 
@@ -2997,25 +2611,19 @@
             }
 
             function position() {
+                if (isMobile()) { menu.style.removeProperty('left'); menu.style.removeProperty('width'); return; }
                 const r = cur.btn.getBoundingClientRect();
-                const maxW = window.innerWidth - 24;
-                const w = Math.min(Math.max(r.width, 150), maxW);
-                const left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
-                menu.style.width = w + 'px';
-                menu.style.left = left + 'px';
-
-                const topBound = (topBar && topBar.offsetHeight > 0 ? topBar.getBoundingClientRect().bottom : 0) + 10;
-                const botBound = (botBar && botBar.offsetHeight > 0 ? botBar.getBoundingClientRect().top : window.innerHeight) - 10;
-                const below = botBound - r.bottom;
-                const above = r.top - topBound;
+                menu.style.width = r.width + 'px';
+                menu.style.left = r.left + 'px';
+                const below = window.innerHeight - r.bottom - 12;
+                const above = r.top - 12;
                 const want = Math.min(listEl.scrollHeight + 10, 300);
-
                 if (below < want && above > below) {
-                    menu.style.maxHeight = Math.min(300, Math.max(96, above - 6)) + 'px';
+                    menu.style.maxHeight = Math.min(300, above - 6) + 'px';
                     menu.style.top = 'auto';
                     menu.style.bottom = (window.innerHeight - r.top + 6) + 'px';
                 } else {
-                    menu.style.maxHeight = Math.min(300, Math.max(96, below - 6)) + 'px';
+                    menu.style.maxHeight = Math.min(300, Math.max(120, below - 6)) + 'px';
                     menu.style.bottom = 'auto';
                     menu.style.top = (r.bottom + 6) + 'px';
                 }
@@ -3024,14 +2632,17 @@
             function centerSelected() {
                 const s = items.find(x => x.el.classList.contains('selected'));
                 if (!s) { menu.scrollTop = 0; return; }
+                const box = isMobile() ? menu : menu;
                 menu.scrollTop = Math.max(0, s.el.offsetTop - menu.clientHeight / 2 + s.el.offsetHeight / 2);
             }
 
             function openMenu(c) {
                 if (cur) closeMenu();
                 cur = c;
+                titleEl.textContent = c.title;
                 build();
                 menu.classList.add('open');
+                backdrop.classList.add('open');
                 c.btn.setAttribute('aria-expanded', 'true');
                 position();
                 centerSelected();
@@ -3040,6 +2651,7 @@
             function closeMenu() {
                 if (!cur) return;
                 menu.classList.remove('open');
+                backdrop.classList.remove('open');
                 cur.btn.setAttribute('aria-expanded', 'false');
                 cur = null;
                 items = [];
@@ -3067,12 +2679,14 @@
                 else if (el.offsetTop + el.offsetHeight > menu.scrollTop + menu.clientHeight) menu.scrollTop = el.offsetTop + el.offsetHeight - menu.clientHeight;
             }
 
-            document.addEventListener('pointerdown', ev => {
+            backdrop.addEventListener('click', closeMenu);
+            menu.querySelector('.csel-title button').addEventListener('click', closeMenu);
+            document.addEventListener('mousedown', ev => {
                 if (cur && !menu.contains(ev.target) && !cur.wrap.contains(ev.target)) closeMenu();
             });
             document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeMenu(); });
-            window.addEventListener('resize', () => { if (cur) position(); });
-            window.addEventListener('scroll', ev => { if (cur && !menu.contains(ev.target)) closeMenu(); }, true);
+            window.addEventListener('resize', () => { if (cur) { isMobile() ? closeMenu() : position(); } });
+            window.addEventListener('scroll', ev => { if (cur && !isMobile() && !menu.contains(ev.target)) closeMenu(); }, true);
 
             function enhance(sel) {
                 const wrap = document.createElement('div');
@@ -3133,288 +2747,6 @@
             }
 
             document.querySelectorAll('select').forEach(enhance);
-        })();
-
-        /* ===== Custom anchored calendar picker for every <input type="date"> =====
-           Replaces native mobile/desktop date popups so every device gets the same anchored calendar. */
-        (function () {
-            const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const WDS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-            const CAL_ICO = '<svg class="cdate-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><rect x="7" y="14" width="3" height="3" fill="currentColor" stroke="none"/></svg>';
-            const UP_ICO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>';
-            const DN_ICO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>';
-            const valueDesc = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
-
-            const pop = document.createElement('div');
-            pop.className = 'cdate-pop';
-            pop.setAttribute('role', 'dialog');
-            pop.setAttribute('aria-label', 'Choose date');
-            document.body.appendChild(pop);
-
-            const topBar = document.querySelector('.mobile-tabs');
-            const botBar = document.querySelector('.mobile-sticky-action');
-
-            let cur = null;     // { inp, btn, wrap }
-            let viewYear = 2026;
-            let viewMonth = 0;  // 0..11
-            let mode = 'days';  // 'days' | 'months'
-
-            function parseISO(s) {
-                const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((s || '').trim());
-                if (!m) return null;
-                return { y: Number(m[1]), m: Number(m[2]) - 1, d: Number(m[3]) };
-            }
-            function toISO(y, m, d) {
-                return y + '-' + String(m + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0');
-            }
-            function toDisplay(s) {
-                const p = parseISO(s);
-                if (!p) return '';
-                return String(p.m + 1).padStart(2, '0') + '/' + String(p.d).padStart(2, '0') + '/' + p.y;
-            }
-            function todayParts() {
-                const n = new Date();
-                return { y: n.getFullYear(), m: n.getMonth(), d: n.getDate() };
-            }
-
-            function render() {
-                if (!cur) return;
-                const selISO = cur.inp.value;
-                const t = todayParts();
-                const todayISO = toISO(t.y, t.m, t.d);
-
-                pop.innerHTML = '';
-
-                const head = document.createElement('div');
-                head.className = 'cdate-head';
-
-                const ymBtn = document.createElement('button');
-                ymBtn.type = 'button';
-                ymBtn.className = 'cdate-ym-btn';
-                ymBtn.setAttribute('aria-expanded', mode === 'months' ? 'true' : 'false');
-                ymBtn.innerHTML = '<span></span><span aria-hidden="true">▾</span>';
-                ymBtn.firstChild.textContent = mode === 'months' ? String(viewYear) : (MONTHS[viewMonth] + ' ' + viewYear);
-                ymBtn.addEventListener('click', () => {
-                    mode = mode === 'days' ? 'months' : 'days';
-                    render();
-                    position();
-                });
-
-                const arrows = document.createElement('div');
-                arrows.className = 'cdate-arrows';
-
-                const prevBtn = document.createElement('button');
-                prevBtn.type = 'button';
-                prevBtn.className = 'cdate-nav';
-                prevBtn.setAttribute('aria-label', mode === 'months' ? 'Previous year' : 'Previous month');
-                prevBtn.innerHTML = UP_ICO;
-                prevBtn.addEventListener('click', () => {
-                    if (mode === 'months') viewYear -= 1;
-                    else {
-                        viewMonth -= 1;
-                        if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
-                    }
-                    render();
-                });
-
-                const nextBtn = document.createElement('button');
-                nextBtn.type = 'button';
-                nextBtn.className = 'cdate-nav';
-                nextBtn.setAttribute('aria-label', mode === 'months' ? 'Next year' : 'Next month');
-                nextBtn.innerHTML = DN_ICO;
-                nextBtn.addEventListener('click', () => {
-                    if (mode === 'months') viewYear += 1;
-                    else {
-                        viewMonth += 1;
-                        if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
-                    }
-                    render();
-                });
-
-                arrows.append(prevBtn, nextBtn);
-                head.append(ymBtn, arrows);
-                pop.appendChild(head);
-
-                if (mode === 'months') {
-                    const mg = document.createElement('div');
-                    mg.className = 'cdate-months';
-                    MONTHS_SHORT.forEach((label, idx) => {
-                        const mb = document.createElement('button');
-                        mb.type = 'button';
-                        mb.className = 'cdate-month-btn' + (idx === viewMonth ? ' is-selected' : '');
-                        mb.textContent = label;
-                        mb.addEventListener('click', () => {
-                            viewMonth = idx;
-                            mode = 'days';
-                            render();
-                            position();
-                        });
-                        mg.appendChild(mb);
-                    });
-                    pop.appendChild(mg);
-                } else {
-                    const wds = document.createElement('div');
-                    wds.className = 'cdate-wds';
-                    WDS.forEach(w => {
-                        const s = document.createElement('div');
-                        s.className = 'cdate-wd';
-                        s.textContent = w;
-                        wds.appendChild(s);
-                    });
-                    pop.appendChild(wds);
-
-                    const grid = document.createElement('div');
-                    grid.className = 'cdate-days';
-                    const firstDow = new Date(viewYear, viewMonth, 1).getDay();
-                    const start = new Date(viewYear, viewMonth, 1 - firstDow);
-
-                    for (let i = 0; i < 42; i++) {
-                        const dt = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
-                        const y = dt.getFullYear();
-                        const m = dt.getMonth();
-                        const d = dt.getDate();
-                        const iso = toISO(y, m, d);
-                        const btn = document.createElement('button');
-                        btn.type = 'button';
-                        btn.className = 'cdate-day' +
-                            (m !== viewMonth ? ' is-out' : '') +
-                            (iso === todayISO ? ' is-today' : '') +
-                            (iso === selISO ? ' is-selected' : '');
-                        btn.textContent = String(d);
-                        btn.setAttribute('aria-label', MONTHS[m] + ' ' + d + ', ' + y);
-                        btn.addEventListener('click', () => commit(iso));
-                        grid.appendChild(btn);
-                    }
-                    pop.appendChild(grid);
-                }
-
-                const foot = document.createElement('div');
-                foot.className = 'cdate-foot';
-
-                const clearBtn = document.createElement('button');
-                clearBtn.type = 'button';
-                clearBtn.className = 'cdate-act';
-                clearBtn.textContent = 'Clear';
-                clearBtn.addEventListener('click', () => commit(''));
-
-                const todayBtn = document.createElement('button');
-                todayBtn.type = 'button';
-                todayBtn.className = 'cdate-act';
-                todayBtn.textContent = 'Today';
-                todayBtn.addEventListener('click', () => commit(todayISO));
-
-                foot.append(clearBtn, todayBtn);
-                pop.appendChild(foot);
-            }
-
-            function position() {
-                if (!cur) return;
-                const r = cur.btn.getBoundingClientRect();
-                const w = Math.min(272, window.innerWidth - 24);
-                const left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
-                pop.style.width = w + 'px';
-                pop.style.left = left + 'px';
-
-                const topBound = (topBar && topBar.offsetHeight > 0 ? topBar.getBoundingClientRect().bottom : 0) + 8;
-                const botBound = (botBar && botBar.offsetHeight > 0 ? botBar.getBoundingClientRect().top : window.innerHeight) - 8;
-                const below = botBound - r.bottom;
-                const above = r.top - topBound;
-                const need = pop.scrollHeight + 8;
-
-                if (below < need && above > below) {
-                    pop.style.maxHeight = Math.max(180, above - 6) + 'px';
-                    pop.style.top = 'auto';
-                    pop.style.bottom = (window.innerHeight - r.top + 6) + 'px';
-                } else {
-                    pop.style.maxHeight = Math.max(180, below - 6) + 'px';
-                    pop.style.bottom = 'auto';
-                    pop.style.top = (r.bottom + 6) + 'px';
-                }
-            }
-
-            function openPop(c) {
-                if (cur === c) { closePop(); return; }
-                if (cur) closePop();
-                cur = c;
-                const p = parseISO(c.inp.value) || todayParts();
-                viewYear = p.y;
-                viewMonth = p.m;
-                mode = 'days';
-                pop.classList.add('open');
-                c.btn.setAttribute('aria-expanded', 'true');
-                render();
-                position();
-            }
-
-            function closePop() {
-                if (!cur) return;
-                pop.classList.remove('open');
-                cur.btn.setAttribute('aria-expanded', 'false');
-                cur = null;
-            }
-
-            function commit(iso) {
-                const c = cur;
-                closePop();
-                if (!c) return;
-                if (c.inp.value !== iso) {
-                    c.inp.value = iso;
-                    c.inp.dispatchEvent(new Event('input', { bubbles: true }));
-                    c.inp.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-                c.btn.focus({ preventScroll: true });
-            }
-
-            document.addEventListener('pointerdown', ev => {
-                if (cur && !pop.contains(ev.target) && !cur.wrap.contains(ev.target)) closePop();
-            });
-            document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closePop(); });
-            window.addEventListener('resize', () => { if (cur) position(); });
-            window.addEventListener('scroll', ev => { if (cur && !pop.contains(ev.target)) closePop(); }, true);
-
-            function enhanceDate(inp) {
-                const wrap = document.createElement('div');
-                wrap.className = 'cdate';
-                inp.parentNode.insertBefore(wrap, inp);
-                wrap.appendChild(inp);
-
-                const lbl = inp.id ? document.querySelector('label[for="' + inp.id + '"]') : null;
-                const title = lbl ? lbl.textContent.trim() : 'Date';
-
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'cdate-btn';
-                btn.setAttribute('aria-haspopup', 'dialog');
-                btn.setAttribute('aria-expanded', 'false');
-                btn.setAttribute('aria-label', title);
-                btn.innerHTML = '<span class="cdate-text"></span>' + CAL_ICO;
-                wrap.insertBefore(btn, inp);
-                const txt = btn.querySelector('.cdate-text');
-
-                const c = { inp, btn, wrap };
-
-                function refresh() {
-                    const disp = toDisplay(inp.value);
-                    txt.textContent = disp || 'mm/dd/yyyy';
-                    btn.classList.toggle('is-empty', !disp);
-                }
-
-                Object.defineProperty(inp, 'value', {
-                    configurable: true,
-                    get() { return valueDesc.get.call(this); },
-                    set(v) { valueDesc.set.call(this, v); refresh(); }
-                });
-                inp.addEventListener('input', refresh);
-                inp.addEventListener('change', refresh);
-
-                btn.addEventListener('click', () => openPop(c));
-                if (lbl) lbl.addEventListener('click', ev => { ev.preventDefault(); openPop(c); });
-
-                refresh();
-            }
-
-            document.querySelectorAll('input[type="date"]').forEach(enhanceDate);
         })();
 
         handleIdLookup();
